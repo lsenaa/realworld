@@ -12,24 +12,16 @@ const Header = () => {
             <Link to="/">Home</Link>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="">
-              <i className="ion-compose"></i>New Article
-            </a>
+            <Link to="/editor">New Article</Link>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="">
-              <i className="ion-gear-a"></i>Settings
-            </a>
+            <Link to="/settings">Settings</Link>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="">
-              Sign in
-            </a>
+            <Link to="/login">Sign in</Link>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="">
-              Sign up
-            </a>
+            <Link to="/register">Sign up</Link>
           </li>
         </ul>
       </div>
