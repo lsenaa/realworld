@@ -1,4 +1,42 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
+
+interface IArticle {
+  author: {
+    username: string;
+    image: string;
+  };
+  body: string;
+  createdAt: string;
+  description: string;
+  favoritesCount: number;
+  slug: string;
+  tagList: [string];
+  title: string;
+  updatedAt: string;
+}
+
 const HomePage = () => {
+  const [loading, setLoading] = useState(false);
+  const [articles, setArticles] = useState<IArticle[]>([]);
+
+  const fetchArticles = async () => {
+    try {
+      setLoading(true);
+
+      const response = await axios.get("https://api.realworld.io/api/articles");
+      console.log(response.data.articles);
+      setArticles(response.data.articles);
+    } catch (e) {
+      console.log(e);
+    }
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchArticles();
+  }, []);
+
   return (
     <div className="home-page">
       <div className="banner">
@@ -26,29 +64,41 @@ const HomePage = () => {
               </ul>
             </div>
 
-            <div className="article-preview">
-              <div className="article-meta">
-                <a href="profile.html">
-                  <img src="http://i.imgur.com/Qr71crq.jpg" />
-                </a>
-                <div className="info">
-                  <a href="" className="author">
-                    Eric Simons
+            {articles?.map((article, index) => (
+              <div className="article-preview" key={index}>
+                <div className="article-meta">
+                  <a href="profile.html">
+                    <img src={article.author.image} alt="author" />
                   </a>
-                  <span className="date">January 20th</span>
+                  <div className="info">
+                    <a href="" className="author">
+                      {article.author.username}
+                    </a>
+                    <span className="date">{article.createdAt}</span>
+                  </div>
+                  <button className="btn btn-outline-primary btn-sm pull-xs-right">
+                    <i className="ion-heart"></i> {article.favoritesCount}
+                  </button>
                 </div>
-                <button className="btn btn-outline-primary btn-sm pull-xs-right">
-                  <i className="ion-heart"></i> 29
-                </button>
+                <a href="" className="preview-link">
+                  <h1>{article.slug.split("-").join(" ").slice(0, -7)}</h1>
+                  <p>{article.description}</p>
+                  <span>Read more...</span>
+                  <ul className="tag-list">
+                    {article.tagList.map((tag, index) => (
+                      <li
+                        className="tag-default tag-pill tag-outline ng-binding ng-scope"
+                        key={index}
+                      >
+                        {tag}
+                      </li>
+                    ))}
+                  </ul>
+                </a>
               </div>
-              <a href="" className="preview-link">
-                <h1>How to build webapps that scale</h1>
-                <p>This is the description for the post.</p>
-                <span>Read more...</span>
-              </a>
-            </div>
+            ))}
 
-            <div className="article-preview">
+            {/* <div className="article-preview">
               <div className="article-meta">
                 <a href="profile.html">
                   <img src="http://i.imgur.com/N4VcUeJ.jpg" />
@@ -72,6 +122,7 @@ const HomePage = () => {
                 <span>Read more...</span>
               </a>
             </div>
+          </div> */}
           </div>
 
           <div className="col-md-3">
