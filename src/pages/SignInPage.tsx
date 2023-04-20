@@ -51,7 +51,7 @@ const SignInPage = () => {
           <div className="col-md-6 offset-md-3 col-xs-12">
             <h1 className="text-xs-center">Sign In</h1>
             <p className="text-xs-center">
-              <Link to="/signup">Not registered?</Link>
+              <Link to="/register">Not registered?</Link>
             </p>
 
             <ul className="error-messages">
