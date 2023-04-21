@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { postLogin } from "../apis/users/users";
 import { useIsLogin } from "../hooks/useIsLogin";
+import { getToken, setToken } from "../libs/token";
 
 interface IFormSigninData {
   email: string;
@@ -34,8 +35,8 @@ const SignInPage = () => {
     e.preventDefault();
     postLogin(values)
       .then((res) => {
-        localStorage.setToken("accessToken", res.data.user.token);
-        setIsLogin(localStorage.getToken("accessToken"));
+        setToken("accessToken", res.data.user.token);
+        setIsLogin(getToken("accessToken"));
         navigate("/", { replace: true });
       })
       .catch((err) => {

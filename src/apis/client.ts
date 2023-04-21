@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getToken } from "../libs/token";
 
 const BASE_URL = "https://api.realworld.io/api";
 
@@ -9,6 +10,6 @@ export const apiClient = axios.create({
 export const authAPI = {
   USER_VALIDATION: async () => {
     const response = await apiClient.get("/users/login");
-    const jwtToken = localStorage.getItem("jwtToken");
+    const jwtToken = getToken("accessToken");
   },
 };
