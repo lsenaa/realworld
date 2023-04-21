@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { postLogin } from "../apis/users/users";
+import { useIsLogin } from "../hooks/useIsLogin";
 
 interface IFormSigninData {
   email: string;
@@ -9,6 +10,8 @@ interface IFormSigninData {
 
 const SignInPage = () => {
   const navigate = useNavigate();
+  const { setIsLogin } = useIsLogin();
+
   const [values, setValues] = useState<IFormSigninData>({
     email: "",
     password: "",
@@ -32,10 +35,11 @@ const SignInPage = () => {
     postLogin(values)
       .then((res) => {
         localStorage.setToken("accessToken", res.data.user.token);
-        // setIsLogin(!!token.getToken("accessToken"));
+        setIsLogin(localStorage.getToken("accessToken"));
         navigate("/", { replace: true });
       })
       .catch((err) => {
+        console.log(err);
         setError({
           email: err.response.data.errors.email,
           password: err.response.data.errors.password,
