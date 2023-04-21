@@ -1,14 +1,17 @@
 import React from "react";
 import Footer from "./components/Footer";
 import Header from "./components/header/Header";
+import { UserContextProvider } from "./contexts/UserContext";
 import Router from "./Router";
 
 function App() {
   return (
     <div className="App">
-      <Header />
-      <Router />
-      <Footer />
+      <UserContextProvider>
+        <Header />
+        <Router />
+        <Footer />
+      </UserContextProvider>
     </div>
   );
 }
