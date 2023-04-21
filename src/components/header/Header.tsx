@@ -1,6 +1,13 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { UserContext } from "../../contexts/UserContext";
+import { useGetUser } from "../../hooks/useGetUser";
 
 const Header = () => {
+  const { isLogin } = useContext(UserContext);
+  const { userData } = useGetUser();
+  console.log(userData);
+
   return (
     <nav className="navbar navbar-light">
       <div className="container">
