@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useGetArticles } from "../hooks/useGetArticles";
+import { Link } from "react-router-dom";
 
 interface IArticle {
   author: {
@@ -17,25 +17,7 @@ interface IArticle {
 }
 
 const HomePage = () => {
-  const [loading, setLoading] = useState(false);
-  const [articles, setArticles] = useState<IArticle[]>([]);
-
-  const fetchArticles = async () => {
-    try {
-      setLoading(true);
-
-      const response = await axios.get("https://api.realworld.io/api/articles");
-      console.log(response.data.articles);
-      setArticles(response.data.articles);
-    } catch (e) {
-      console.log(e);
-    }
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    fetchArticles();
-  }, []);
+  const { data, isLoading } = useGetArticles();
 
   return (
     <div className="home-page">
@@ -52,40 +34,42 @@ const HomePage = () => {
             <div className="feed-toggle">
               <ul className="nav nav-pills outline-active">
                 <li className="nav-item">
-                  <a className="nav-link disabled" href="">
+                  <Link to="" className="nav-link disabled">
                     Your Feed
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link active" href="">
+                  <Link to="" className="nav-link active">
                     Global Feed
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
 
-            {articles?.map((article, index) => (
+            {isLoading && <p style={{ marginTop: "10px" }}>Loading...</p>}
+
+            {data?.data.articles.map((article: IArticle, index: number) => (
               <div className="article-preview" key={index}>
                 <div className="article-meta">
-                  <a href="profile.html">
-                    <img src={article.author.image} alt="author" />
-                  </a>
+                  {/* <Link to={`/profile/${username}`}> */}
+                  <img src={article.author.image} alt="author" />
+                  {/* </Link> */}
                   <div className="info">
-                    <a href="" className="author">
+                    <Link to="" className="author">
                       {article.author.username}
-                    </a>
+                    </Link>
                     <span className="date">{article.createdAt}</span>
                   </div>
                   <button className="btn btn-outline-primary btn-sm pull-xs-right">
                     <i className="ion-heart"></i> {article.favoritesCount}
                   </button>
                 </div>
-                <a href="" className="preview-link">
+                <Link to={`articles/${article.slug}`} className="preview-link">
                   <h1>{article.slug.split("-").join(" ").slice(0, -7)}</h1>
                   <p>{article.description}</p>
                   <span>Read more...</span>
                   <ul className="tag-list">
-                    {article.tagList.map((tag, index) => (
+                    {article.tagList.map((tag: string, index: number) => (
                       <li
                         className="tag-default tag-pill tag-outline ng-binding ng-scope"
                         key={index}
@@ -94,35 +78,9 @@ const HomePage = () => {
                       </li>
                     ))}
                   </ul>
-                </a>
+                </Link>
               </div>
             ))}
-
-            {/* <div className="article-preview">
-              <div className="article-meta">
-                <a href="profile.html">
-                  <img src="http://i.imgur.com/N4VcUeJ.jpg" />
-                </a>
-                <div className="info">
-                  <a href="" className="author">
-                    Albert Pai
-                  </a>
-                  <span className="date">January 20th</span>
-                </div>
-                <button className="btn btn-outline-primary btn-sm pull-xs-right">
-                  <i className="ion-heart"></i> 32
-                </button>
-              </div>
-              <a href="" className="preview-link">
-                <h1>
-                  The song you won't ever stop singing. No matter how hard you
-                  try.
-                </h1>
-                <p>This is the description for the post.</p>
-                <span>Read more...</span>
-              </a>
-            </div>
-          </div> */}
           </div>
 
           <div className="col-md-3">
