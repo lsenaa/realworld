@@ -1,8 +1,8 @@
-import { useGetArticlesSlug } from "../hooks/useGetArticles";
+// import { useGetArticlesSlug } from "../hooks/useGetArticles";
 
 const ArticlePage = () => {
-  const { data, isLoading } = useGetArticlesSlug(slug);
-  console.log(data);
+  // const { data, isLoading } = useGetArticlesSlug(slug);
+  // console.log(data);
 
   return (
     <div className="article-page">

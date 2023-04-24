@@ -1,5 +1,6 @@
 import { useGetArticles } from "../hooks/useGetArticles";
 import { Link } from "react-router-dom";
+import ArticlePreview from "../components/article/ArticlePreview";
 
 interface IArticle {
   author: {
@@ -11,7 +12,7 @@ interface IArticle {
   description: string;
   favoritesCount: number;
   slug: string;
-  tagList: [string];
+  tagList: string[];
   title: string;
   updatedAt: string;
 }
@@ -49,37 +50,7 @@ const HomePage = () => {
             {isLoading && <p style={{ marginTop: "10px" }}>Loading...</p>}
 
             {data?.data.articles.map((article: IArticle, index: number) => (
-              <div className="article-preview" key={index}>
-                <div className="article-meta">
-                  {/* <Link to={`/profile/${username}`}> */}
-                  <img src={article.author.image} alt="author" />
-                  {/* </Link> */}
-                  <div className="info">
-                    <Link to="" className="author">
-                      {article.author.username}
-                    </Link>
-                    <span className="date">{article.createdAt}</span>
-                  </div>
-                  <button className="btn btn-outline-primary btn-sm pull-xs-right">
-                    <i className="ion-heart"></i> {article.favoritesCount}
-                  </button>
-                </div>
-                <Link to={`/article/${article.slug}`} className="preview-link">
-                  <h1>{article.slug.split("-").join(" ").slice(0, -7)}</h1>
-                  <p>{article.description}</p>
-                  <span>Read more...</span>
-                  <ul className="tag-list">
-                    {article.tagList.map((tag: string, index: number) => (
-                      <li
-                        className="tag-default tag-pill tag-outline ng-binding ng-scope"
-                        key={index}
-                      >
-                        {tag}
-                      </li>
-                    ))}
-                  </ul>
-                </Link>
-              </div>
+              <ArticlePreview article={article} />
             ))}
           </div>
 
