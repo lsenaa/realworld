@@ -64,7 +64,7 @@ const HomePage = () => {
                     <i className="ion-heart"></i> {article.favoritesCount}
                   </button>
                 </div>
-                <Link to={`articles/${article.slug}`} className="preview-link">
+                <Link to={`/article/${article.slug}`} className="preview-link">
                   <h1>{article.slug.split("-").join(" ").slice(0, -7)}</h1>
                   <p>{article.description}</p>
                   <span>Read more...</span>

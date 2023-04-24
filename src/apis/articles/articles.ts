@@ -15,32 +15,57 @@ export const getFeed = async () => {
   });
 };
 
-export const postArticle = async (data: { article: IPostArticle }) => {
+export const postArticle = async ({
+  title,
+  description,
+  body,
+  tagList,
+}: IPostArticle) => {
   return await apiClient({
     method: "post",
     url: `/articles`,
-    data,
+    data: {
+      article: {
+        title,
+        description,
+        body,
+        tagList,
+      },
+    },
   });
 };
 
-export const getArticlesSlug = async () => {
+export const getArticlesSlug = async (slug: string) => {
   return await apiClient({
     method: "get",
-    url: `/articles/:slug`,
+    url: `/articles/${slug}`,
   });
 };
 
-export const putArticles = async (data: { article: IPutArticle }) => {
+export const putArticle = async ({
+  slug,
+  title,
+  description,
+  body,
+  tagList,
+}: IPutArticle) => {
   return await apiClient({
     method: "put",
-    url: "/articles/:slug",
-    data,
+    url: `/articles/${slug}`,
+    data: {
+      article: {
+        title,
+        description,
+        body,
+        tagList,
+      },
+    },
   });
 };
 
-export const DeleteArticles = async () => {
+export const DeleteArticle = async (slug: string) => {
   return await apiClient({
     method: "delete",
-    url: "/articles/:slug",
+    url: `/articles/${slug}`,
   });
 };

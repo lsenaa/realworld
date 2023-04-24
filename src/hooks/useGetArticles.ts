@@ -11,10 +11,10 @@ export const useGetArticles = () => {
   return { data, isLoading };
 };
 
-export const useGetArticlesSlug = () => {
+export const useGetArticlesSlug = (slug: string) => {
   const { data, isLoading } = useQuery({
-    queryKey: ["articles/:slug"],
-    queryFn: getArticlesSlug,
+    queryKey: ["articles", slug],
+    queryFn: getArticlesSlug(slug),
     staleTime: 20000,
   });
 

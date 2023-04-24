@@ -1,4 +1,9 @@
+import { useGetArticlesSlug } from "../hooks/useGetArticles";
+
 const ArticlePage = () => {
+  const { data, isLoading } = useGetArticlesSlug(slug);
+  console.log(data);
+
   return (
     <div className="article-page">
       <div className="banner">
