@@ -5,27 +5,27 @@ import { IArticle } from "./Homepage";
 const ArticlePage = () => {
   const { state } = useLocation();
   const data = useGetArticlesSlug(state.slug);
-  const article: IArticle = data.data.article;
+  const article: IArticle = data.data?.article;
 
   return (
     <div className="article-page">
       <div className="banner">
         <div className="container">
-          <h1>{article.title}</h1>
+          <h1>{article?.title}</h1>
 
           <div className="article-meta">
             <Link to="">
-              <img src={article.author.image} alt="profile" />
+              <img src={article?.author.image} alt="profile" />
             </Link>
             <div className="info">
               <Link to="" className="author">
-                {article.author.username}
+                {article?.author.username}
               </Link>
-              <span className="date">{article.updatedAt}</span>
+              <span className="date">{article?.updatedAt}</span>
             </div>
             <button className="btn btn-sm btn-outline-secondary">
               <i className="ion-plus-round"></i>
-              &nbsp; Follow {article.author.username}{" "}
+              &nbsp; Follow {article?.author.username}{" "}
               <span className="counter">(10)</span>
             </button>
             &nbsp;&nbsp;
@@ -40,8 +40,8 @@ const ArticlePage = () => {
       <div className="container page">
         <div className="row article-content">
           <div className="col-md-12">
-            <p>{article.body}</p>
-            {article.tagList.map((tag: string) => (
+            <p>{article?.body}</p>
+            {article?.tagList.map((tag: string) => (
               <li key={tag} className="tag-default tag-pill tag-outline">
                 {tag}
               </li>
@@ -54,17 +54,17 @@ const ArticlePage = () => {
         <div className="article-actions">
           <div className="article-meta">
             <Link to="">
-              <img src={article.author.image} alt="profile" />
+              <img src={article?.author.image} alt="profile" />
             </Link>
             <div className="info">
               <Link to="" className="author">
-                {article.author.username}
+                {article?.author.username}
               </Link>
-              <span className="date">{article.updatedAt}</span>
+              <span className="date">{article?.updatedAt}</span>
             </div>
             <button className="btn btn-sm btn-outline-secondary">
               <i className="ion-plus-round"></i>
-              &nbsp; Follow {article.author.username}
+              &nbsp; Follow {article?.author.username}
             </button>
             &nbsp;
             <button className="btn btn-sm btn-outline-primary">
