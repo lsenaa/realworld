@@ -1,33 +1,37 @@
-// import { useGetArticlesSlug } from "../hooks/useGetArticles";
+import { Link, useLocation } from "react-router-dom";
+import { useGetArticlesSlug } from "../hooks/useGetArticles";
+import { IArticle } from "./Homepage";
 
 const ArticlePage = () => {
-  // const { data, isLoading } = useGetArticlesSlug(slug);
-  // console.log(data);
+  const { state } = useLocation();
+  const data = useGetArticlesSlug(state.slug);
+  const article: IArticle = data.data.article;
 
   return (
     <div className="article-page">
       <div className="banner">
         <div className="container">
-          <h1>How to build webapps that scale</h1>
+          <h1>{article.title}</h1>
 
           <div className="article-meta">
-            <a href="">
-              <img src="http://i.imgur.com/Qr71crq.jpg" />
-            </a>
+            <Link to="">
+              <img src={article.author.image} alt="profile" />
+            </Link>
             <div className="info">
-              <a href="" className="author">
-                Eric Simons
-              </a>
-              <span className="date">January 20th</span>
+              <Link to="" className="author">
+                {article.author.username}
+              </Link>
+              <span className="date">{article.updatedAt}</span>
             </div>
             <button className="btn btn-sm btn-outline-secondary">
               <i className="ion-plus-round"></i>
-              &nbsp; Follow Eric Simons <span className="counter">(10)</span>
+              &nbsp; Follow {article.author.username}{" "}
+              <span className="counter">(10)</span>
             </button>
             &nbsp;&nbsp;
             <button className="btn btn-sm btn-outline-primary">
               <i className="ion-heart"></i>
-              &nbsp; Favorite Post <span className="counter">(29)</span>
+              &nbsp; Favorite Article <span className="counter">(29)</span>
             </button>
           </div>
         </div>
@@ -36,12 +40,12 @@ const ArticlePage = () => {
       <div className="container page">
         <div className="row article-content">
           <div className="col-md-12">
-            <p>
-              Web development technologies have evolved at an incredible clip
-              over the past few years.
-            </p>
-            <h2 id="introducing-ionic">Introducing RealWorld.</h2>
-            <p>It's a great solution for learning how other frameworks work.</p>
+            <p>{article.body}</p>
+            {article.tagList.map((tag: string) => (
+              <li key={tag} className="tag-default tag-pill tag-outline">
+                {tag}
+              </li>
+            ))}
           </div>
         </div>
 
@@ -49,28 +53,28 @@ const ArticlePage = () => {
 
         <div className="article-actions">
           <div className="article-meta">
-            <a href="profile.html">
-              <img src="http://i.imgur.com/Qr71crq.jpg" />
-            </a>
+            <Link to="">
+              <img src={article.author.image} alt="profile" />
+            </Link>
             <div className="info">
-              <a href="" className="author">
-                Eric Simons
-              </a>
-              <span className="date">January 20th</span>
+              <Link to="" className="author">
+                {article.author.username}
+              </Link>
+              <span className="date">{article.updatedAt}</span>
             </div>
             <button className="btn btn-sm btn-outline-secondary">
               <i className="ion-plus-round"></i>
-              &nbsp; Follow Eric Simons
+              &nbsp; Follow {article.author.username}
             </button>
             &nbsp;
             <button className="btn btn-sm btn-outline-primary">
               <i className="ion-heart"></i>
-              &nbsp; Favorite Post <span className="counter">(29)</span>
+              &nbsp; Favorite Article <span className="counter">(29)</span>
             </button>
           </div>
         </div>
 
-        <div className="row">
+        {/* <div className="row">
           <div className="col-xs-12 col-md-8 offset-md-2">
             <form className="card comment-form">
               <div className="card-block">
@@ -137,7 +141,7 @@ const ArticlePage = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

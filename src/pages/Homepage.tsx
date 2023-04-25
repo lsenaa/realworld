@@ -2,7 +2,7 @@ import { useGetArticles } from "../hooks/useGetArticles";
 import { Link } from "react-router-dom";
 import ArticlePreview from "../components/article/ArticlePreview";
 
-interface IArticle {
+export interface IArticle {
   author: {
     username: string;
     image: string;
@@ -49,8 +49,8 @@ const HomePage = () => {
 
             {isLoading && <p style={{ marginTop: "10px" }}>Loading...</p>}
 
-            {data?.data.articles.map((article: IArticle, index: number) => (
-              <ArticlePreview article={article} />
+            {data?.data.articles.map((article: IArticle) => (
+              <ArticlePreview article={article} key={article.slug} />
             ))}
           </div>
 
