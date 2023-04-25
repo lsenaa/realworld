@@ -10,5 +10,4 @@ export const apiClient = axios.create({
   headers: {
     Authorization: `Bearer ${jwtToken}`,
   },
-  withCredentials: true,
 });
