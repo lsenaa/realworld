@@ -53,7 +53,8 @@ const ArticlePage = () => {
             &nbsp;&nbsp;
             <button className="btn btn-sm btn-outline-primary">
               <i className="ion-heart"></i>
-              &nbsp; Favorite Article <span className="counter">(29)</span>
+              &nbsp; Favorite Article{" "}
+              <span className="counter">({article?.favoritesCount})</span>
             </button>
           </div>
         </div>
@@ -94,7 +95,8 @@ const ArticlePage = () => {
             &nbsp;
             <button className="btn btn-sm btn-outline-primary">
               <i className="ion-heart"></i>
-              &nbsp; Favorite Article <span className="counter">(29)</span>
+              &nbsp; Favorite Article{" "}
+              <span className="counter">({article?.favoritesCount})</span>
             </button>
           </div>
         </div>
