@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import CommentList from "../components/comments/CommentList";
 import CommentWrite from "../components/comments/CommentWrite";
 import { useGetArticlesSlug } from "../hooks/queries/useQueryArticles";
@@ -20,10 +20,10 @@ export interface IComment {
   };
 }
 const ArticlePage = () => {
-  const { state } = useLocation();
-  const data = useGetArticlesSlug(state.slug);
+  const params = useParams();
+  const data = useGetArticlesSlug(String(params.slug));
   const article: IArticle = data.data?.data.article;
-  const commentData = useGetComments(state.slug);
+  const commentData = useGetComments(String(params.slug));
   const comments: IComment[] = commentData.data?.data.comments;
 
   return (
@@ -103,7 +103,7 @@ const ArticlePage = () => {
 
         <div className="row">
           <div className="col-xs-12 col-md-8 offset-md-2">
-            <CommentWrite />
+            <CommentWrite slug={String(params.slug)} />
             {comments?.map((comment: IComment) => (
               <CommentList comment={comment.comment} key={comment.comment.id} />
             ))}
