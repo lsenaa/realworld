@@ -1,4 +1,4 @@
-import { apiClient } from "../client";
+import { apiClient } from "./client";
 
 export const getComments = async (slug: string) => {
   return await apiClient({
