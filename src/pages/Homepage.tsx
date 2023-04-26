@@ -1,10 +1,10 @@
-import { useGetArticles } from "../hooks/useGetArticles";
+import { useGetArticles } from "../hooks/queries/useQueryArticles";
 import { Link } from "react-router-dom";
 import ArticlePreview from "../components/article/ArticlePreview";
-import { useGetTags } from "../hooks/useGetTags";
+import { useGetTags } from "../hooks/queries/useQueryTags";
 import { useContext, useState } from "react";
 import { UserContext } from "../contexts/UserContext";
-import { useGetFeed } from "../hooks/useGetFeed";
+import { useGetFeed } from "../hooks/queries/useQueryArticles";
 
 export interface IArticle {
   author: {

@@ -1,8 +1,8 @@
 import { Link, useLocation } from "react-router-dom";
 import CommentList from "../components/comments/CommentList";
 import CommentWrite from "../components/comments/CommentWrite";
-import { useGetArticlesSlug } from "../hooks/useGetArticles";
-import { useGetComments } from "../hooks/useGetComments";
+import { useGetArticlesSlug } from "../hooks/queries/useQueryArticles";
+import { useGetComments } from "../hooks/queries/useQueryComments";
 import { IArticle } from "./Homepage";
 
 export interface IComment {

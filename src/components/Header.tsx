@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useGetUser } from "../../hooks/useGetUser";
+import { useGetUser } from "../hooks/queries/useQueryUser";
 
 const Header = () => {
   const { userData } = useGetUser();

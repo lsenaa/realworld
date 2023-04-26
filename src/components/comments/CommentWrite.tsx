@@ -1,4 +1,4 @@
-import { useGetUser } from "../../hooks/useGetUser";
+import { useGetUser } from "../../hooks/queries/useQueryUser";
 
 const CommentWrite = () => {
   const { userData } = useGetUser();
