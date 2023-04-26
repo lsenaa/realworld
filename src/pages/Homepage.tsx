@@ -27,7 +27,6 @@ const HomePage = () => {
   const { data: tagData, isLoading: tagIsLoading } = useGetTags();
   const { data: feedData, isLoading: feedIsLoading } = useGetFeed();
   const [isGlobal, setIsGlobal] = useState(false);
-  console.log(feedData);
 
   return (
     <div className="home-page">
@@ -66,17 +65,12 @@ const HomePage = () => {
               </ul>
             </div>
 
-            {isGlobal ? (
-              feedData?.data.articles.map((article: IArticle) => (
-                <ArticlePreview article={article} key={article.slug} />
-              ))
+            {isLoading ? (
+              <p style={{ marginTop: "10px" }}>Loading...</p>
             ) : (
-              <div></div>
-              // {isLoading && <p style={{ marginTop: "10px" }}>Loading...</p>}
-
-              // {data?.data.articles.map((article: IArticle) => (
-              //   <ArticlePreview article={article} key={article.slug} />
-              // ))}
+              <ArticlePreview
+                data={isGlobal ? data?.data.articles : feedData?.data.articles}
+              />
             )}
           </div>
 

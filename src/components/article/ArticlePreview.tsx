@@ -1,25 +1,23 @@
 import { Link } from "react-router-dom";
 
 interface IArticle {
-  article: {
-    author: {
-      username: string;
-      image: string;
-    };
-    body?: string;
-    createdAt: string;
-    description: string;
-    favoritesCount: number;
-    slug: string;
-    tagList: string[];
-    title: string;
-    updatedAt?: string;
+  author: {
+    username: string;
+    image: string;
   };
+  body: string;
+  createdAt: string;
+  description: string;
+  favoritesCount: number;
+  slug: string;
+  tagList: string[];
+  title: string;
+  updatedAt: string;
 }
 
-const ArticlePreview = ({ article }: IArticle) => {
-  return (
-    <div className="article-preview">
+const ArticlePreview = (data: any) => {
+  return data?.data.map((article: IArticle) => (
+    <div className="article-preview" key={article.slug}>
       <div className="article-meta">
         {/* <Link to={`/profile/${username}`}> */}
         <img src={article.author.image} alt="author" />
@@ -54,7 +52,7 @@ const ArticlePreview = ({ article }: IArticle) => {
         </ul>
       </Link>
     </div>
-  );
+  ));
 };
 
 export default ArticlePreview;
