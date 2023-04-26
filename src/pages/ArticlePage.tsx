@@ -96,7 +96,7 @@ const ArticlePage = () => {
         <div className="row">
           <div className="col-xs-12 col-md-8 offset-md-2">
             <CommentWrite />
-            {comments.map((comment: IComment) => (
+            {comments?.map((comment: IComment) => (
               <CommentList comment={comment.comment} key={comment.comment.id} />
             ))}
           </div>
