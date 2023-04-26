@@ -33,18 +33,21 @@ const ArticlePage = () => {
           <h1>{article?.title}</h1>
 
           <div className="article-meta">
-            <Link to="">
+            <Link to={`/profile/${article?.author.username}`}>
               <img src={article?.author.image} alt="profile" />
             </Link>
             <div className="info">
-              <Link to="" className="author">
+              <Link
+                to={`/profile/${article?.author.username}`}
+                className="author"
+              >
                 {article?.author.username}
               </Link>
               <span className="date">{article?.updatedAt}</span>
             </div>
             <button className="btn btn-sm btn-outline-secondary">
               <i className="ion-plus-round"></i>
-              &nbsp; Follow {article?.author.username}{" "}
+              &nbsp; Follow {article?.author.username}
               <span className="counter">(10)</span>
             </button>
             &nbsp;&nbsp;
@@ -72,11 +75,14 @@ const ArticlePage = () => {
 
         <div className="article-actions">
           <div className="article-meta">
-            <Link to="">
+            <Link to={`/profile/${article?.author.username}`}>
               <img src={article?.author.image} alt="profile" />
             </Link>
             <div className="info">
-              <Link to="" className="author">
+              <Link
+                to={`/profile/${article?.author.username}`}
+                className="author"
+              >
                 {article?.author.username}
               </Link>
               <span className="date">{article?.updatedAt}</span>

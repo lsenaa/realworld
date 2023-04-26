@@ -19,11 +19,11 @@ const ArticlePreview = (data: any) => {
   return data?.data.map((article: IArticle) => (
     <div className="article-preview" key={article.slug}>
       <div className="article-meta">
-        {/* <Link to={`/profile/${username}`}> */}
-        <img src={article.author.image} alt="author" />
-        {/* </Link> */}
+        <Link to={`/profile/${article.author.username}`}>
+          <img src={article.author.image} alt="author" />
+        </Link>
         <div className="info">
-          <Link to="" className="author">
+          <Link to={`/profile/${article.author.username}`} className="author">
             {article.author.username}
           </Link>
           <span className="date">{article.createdAt}</span>
