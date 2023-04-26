@@ -2,6 +2,8 @@ import { useGetArticles } from "../hooks/useGetArticles";
 import { Link } from "react-router-dom";
 import ArticlePreview from "../components/article/ArticlePreview";
 import { useGetTags } from "../hooks/useGetTags";
+import { useContext, useState } from "react";
+import { UserContext } from "../contexts/UserContext";
 
 export interface IArticle {
   author: {
@@ -21,6 +23,8 @@ export interface IArticle {
 const HomePage = () => {
   const { data, isLoading } = useGetArticles();
   const { data: tagData, isLoading: tagIsLoading } = useGetTags();
+  const { isLogin } = useContext(UserContext);
+  const [isGlobal, setIsGlobal] = useState(false);
 
   return (
     <div className="home-page">
@@ -36,13 +40,23 @@ const HomePage = () => {
           <div className="col-md-9">
             <div className="feed-toggle">
               <ul className="nav nav-pills outline-active">
+                {isLogin && (
+                  <li className="nav-item">
+                    <Link
+                      to="/"
+                      className={`nav-link ${isGlobal ? "" : "active"}`}
+                      onClick={() => setIsGlobal(false)}
+                    >
+                      Your Feed
+                    </Link>
+                  </li>
+                )}
                 <li className="nav-item">
-                  <Link to="" className="nav-link disabled">
-                    Your Feed
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link to="" className="nav-link active">
+                  <Link
+                    to="/"
+                    className={`nav-link ${isGlobal ? "active" : ""}`}
+                    onClick={() => setIsGlobal(true)}
+                  >
                     Global Feed
                   </Link>
                 </li>
