@@ -35,17 +35,11 @@ export const postArticle = async ({
   });
 };
 
-// export const getArticlesSlug = async (slug: string) => {
-//   return await apiClient({
-//     method: "get",
-//     url: `/articles/${slug}`,
-//   });
-// };
-
 export const getArticlesSlug = async (slug: string) => {
-  const { data } = await apiClient.get(`/articles/${slug}`);
-
-  return data;
+  return await apiClient({
+    method: "get",
+    url: `/articles/${slug}`,
+  });
 };
 
 export const putArticle = async ({

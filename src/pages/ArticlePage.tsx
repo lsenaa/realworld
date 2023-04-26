@@ -22,7 +22,7 @@ export interface IComment {
 const ArticlePage = () => {
   const { state } = useLocation();
   const data = useGetArticlesSlug(state.slug);
-  const article: IArticle = data.data?.article;
+  const article: IArticle = data.data?.data.article;
   const commentData = useGetComments(state.slug);
   const comments: IComment[] = commentData.data?.data.comments;
 
