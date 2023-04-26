@@ -1,6 +1,7 @@
 import { useGetArticles } from "../hooks/useGetArticles";
 import { Link } from "react-router-dom";
 import ArticlePreview from "../components/article/ArticlePreview";
+import { useGetTags } from "../hooks/useGetTags";
 
 export interface IArticle {
   author: {
@@ -19,6 +20,7 @@ export interface IArticle {
 
 const HomePage = () => {
   const { data, isLoading } = useGetArticles();
+  const { data: tagData, isLoading: tagIsLoading } = useGetTags();
 
   return (
     <div className="home-page">
@@ -59,30 +61,15 @@ const HomePage = () => {
               <p>Popular Tags</p>
 
               <div className="tag-list">
-                <a href="" className="tag-pill tag-default">
-                  programming
-                </a>
-                <a href="" className="tag-pill tag-default">
-                  javascript
-                </a>
-                <a href="" className="tag-pill tag-default">
-                  emberjs
-                </a>
-                <a href="" className="tag-pill tag-default">
-                  angularjs
-                </a>
-                <a href="" className="tag-pill tag-default">
-                  react
-                </a>
-                <a href="" className="tag-pill tag-default">
-                  mean
-                </a>
-                <a href="" className="tag-pill tag-default">
-                  node
-                </a>
-                <a href="" className="tag-pill tag-default">
-                  rails
-                </a>
+                {tagIsLoading && (
+                  <p style={{ marginTop: "10px" }}>Loading...</p>
+                )}
+
+                {tagData?.data.tags.map((tag: string, index: number) => (
+                  <Link to="" className="tag-pill tag-default" key={index}>
+                    {tag}
+                  </Link>
+                ))}
               </div>
             </div>
           </div>
