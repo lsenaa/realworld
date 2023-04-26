@@ -4,6 +4,7 @@ import ArticlePreview from "../components/article/ArticlePreview";
 import { useGetTags } from "../hooks/useGetTags";
 import { useContext, useState } from "react";
 import { UserContext } from "../contexts/UserContext";
+import { useGetFeed } from "../hooks/useGetFeed";
 
 export interface IArticle {
   author: {
@@ -21,10 +22,12 @@ export interface IArticle {
 }
 
 const HomePage = () => {
+  const { isLogin } = useContext(UserContext);
   const { data, isLoading } = useGetArticles();
   const { data: tagData, isLoading: tagIsLoading } = useGetTags();
-  const { isLogin } = useContext(UserContext);
+  const { data: feedData, isLoading: feedIsLoading } = useGetFeed();
   const [isGlobal, setIsGlobal] = useState(false);
+  console.log(feedData);
 
   return (
     <div className="home-page">
@@ -63,11 +66,18 @@ const HomePage = () => {
               </ul>
             </div>
 
-            {isLoading && <p style={{ marginTop: "10px" }}>Loading...</p>}
+            {isGlobal ? (
+              feedData?.data.articles.map((article: IArticle) => (
+                <ArticlePreview article={article} key={article.slug} />
+              ))
+            ) : (
+              <div></div>
+              // {isLoading && <p style={{ marginTop: "10px" }}>Loading...</p>}
 
-            {data?.data.articles.map((article: IArticle) => (
-              <ArticlePreview article={article} key={article.slug} />
-            ))}
+              // {data?.data.articles.map((article: IArticle) => (
+              //   <ArticlePreview article={article} key={article.slug} />
+              // ))}
+            )}
           </div>
 
           <div className="col-md-3">
