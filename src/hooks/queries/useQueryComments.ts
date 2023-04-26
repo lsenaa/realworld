@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getComments } from "../../apis/comments";
+import { getComments } from "../../apis/comments/comments";
 
 export const useGetComments = (slug: string) => {
   const { data, isLoading } = useQuery({

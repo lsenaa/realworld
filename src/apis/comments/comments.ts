@@ -1,4 +1,5 @@
-import { apiClient } from "./client";
+import { apiClient } from "../client";
+import { IDeleteComment, IPostComment } from "./commentsType";
 
 export const getComments = async (slug: string) => {
   return await apiClient({
@@ -7,7 +8,7 @@ export const getComments = async (slug: string) => {
   });
 };
 
-export const postComment = async (body: string, slug: string) => {
+export const postComment = async ({ body, slug }: IPostComment) => {
   return await apiClient({
     method: "post",
     url: `/articles/${slug}/comments`,
@@ -19,7 +20,7 @@ export const postComment = async (body: string, slug: string) => {
   });
 };
 
-export const DeleteComment = async (slug: string, id: string) => {
+export const deleteComment = async ({ slug, id }: IDeleteComment) => {
   return await apiClient({
     method: "delete",
     url: `/articles/${slug}/comments/${id}`,
