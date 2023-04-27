@@ -2,7 +2,10 @@ import { Link, useParams } from "react-router-dom";
 import CommentList from "../components/comments/CommentList";
 import CommentWrite from "../components/comments/CommentWrite";
 import { useGetArticlesSlug } from "../hooks/queries/useQueryArticles";
-import { useGetComments } from "../hooks/queries/useQueryComments";
+import {
+  useCommentQuery,
+  // useGetComments,
+} from "../hooks/queries/useQueryComments";
 import { IArticle } from "./Homepage";
 
 export interface IComment {
@@ -23,8 +26,9 @@ const ArticlePage = () => {
   const params = useParams();
   const data = useGetArticlesSlug(String(params.slug));
   const article: IArticle = data.data?.data.article;
-  const commentData = useGetComments(String(params.slug));
-  const comments: IComment[] = commentData.data?.data.comments;
+  // const commentData = useGetComments(String(params.slug));
+  const { commentData } = useCommentQuery(String(params.slug));
+  const comments: IComment[] = commentData?.data.comments;
 
   return (
     <div className="article-page">
@@ -105,7 +109,11 @@ const ArticlePage = () => {
           <div className="col-xs-12 col-md-8 offset-md-2">
             <CommentWrite slug={String(params.slug)} />
             {comments?.map((comment: IComment) => (
-              <CommentList comment={comment} key={comment.id} />
+              <CommentList
+                comment={comment}
+                slug={String(params.slug)}
+                key={comment.id}
+              />
             ))}
           </div>
         </div>

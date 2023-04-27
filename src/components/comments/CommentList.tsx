@@ -1,5 +1,23 @@
+import React from "react";
 import { Link } from "react-router-dom";
-const CommentList = ({ comment }: any) => {
+import { useQueryClient } from "@tanstack/react-query";
+import { deleteComment } from "../../apis/comments/comments";
+import { useCommentQuery } from "../../hooks/queries/useQueryComments";
+
+const CommentList = ({ comment, slug }: any) => {
+  const queryClient = useQueryClient();
+  const { deleteCommentMutation } = useCommentQuery(slug);
+  // const onClickDeleteComment = () => {
+  //   deleteComment.mutate(
+  //     { slug, id: comment.id },
+  //     {
+  //       onSuccess: () => {
+  //         queryClient.invalidateQueries(["comments"]);
+  //       },
+  //     }
+  //   );
+  // };
+
   return (
     <div className="card">
       <div className="card-block">
