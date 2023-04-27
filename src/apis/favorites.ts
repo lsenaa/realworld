@@ -3,7 +3,7 @@ import { apiClient } from "./client";
 export const postFavorites = async (slug: string) => {
   return await apiClient({
     method: "post",
-    url: `/articles/${slug}/favorites`,
+    url: `/articles/${slug}/favorite`,
   });
 };
 
