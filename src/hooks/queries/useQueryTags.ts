@@ -1,12 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { getTags } from "../../apis/tags";
 
-export const useGetTags = () => {
-  const { data, isLoading } = useQuery({
-    queryKey: ["tags"],
-    queryFn: () => getTags(),
-    staleTime: 20000,
-  });
+export const useTagQuery = () => {
+  const { data: tagData, isLoading: tagIsLoading } = useQuery(["tags"], () =>
+    getTags()
+  );
 
-  return { data, isLoading };
+  return { tagData, tagIsLoading };
 };

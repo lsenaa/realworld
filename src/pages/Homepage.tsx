@@ -1,7 +1,7 @@
 import { useArticlesQuery } from "../hooks/queries/useQueryArticles";
 import { Link } from "react-router-dom";
 import ArticlePreview from "../components/article/ArticlePreview";
-import { useGetTags } from "../hooks/queries/useQueryTags";
+import { useTagQuery } from "../hooks/queries/useQueryTags";
 import { useContext, useState } from "react";
 import { UserContext } from "../contexts/UserContext";
 
@@ -23,7 +23,7 @@ export interface IArticle {
 const HomePage = () => {
   const { isLogin } = useContext(UserContext);
   const { data, feedData, feedIsLoading } = useArticlesQuery();
-  const { data: tagData, isLoading: tagIsLoading } = useGetTags();
+  const { tagData, tagIsLoading } = useTagQuery();
   const [isGlobal, setIsGlobal] = useState(false);
 
   return (

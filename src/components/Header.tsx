@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-import { useGetUser } from "../hooks/queries/useQueryUser";
+import { useUserQuery } from "../hooks/queries/useQueryUser";
 
 const Header = () => {
-  const { userData } = useGetUser();
+  const { userData } = useUserQuery();
 
   return (
     <nav className="navbar navbar-light">
@@ -33,7 +33,7 @@ const Header = () => {
                 <Link
                   to={`/profile/${userData.data.user.username}`}
                   className="nav-link"
-                  // state={userData.username}
+                  state={userData.data.username}
                 >
                   <img
                     className="user-pic"

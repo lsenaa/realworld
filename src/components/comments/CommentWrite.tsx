@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useGetUser } from "../../hooks/queries/useQueryUser";
+import { useUserQuery } from "../../hooks/queries/useQueryUser";
 import { useCommentQuery } from "../../hooks/queries/useQueryComments";
 
 interface ICommentWriteProps {
@@ -7,7 +7,7 @@ interface ICommentWriteProps {
 }
 
 const CommentWrite = ({ slug }: ICommentWriteProps) => {
-  const { userData } = useGetUser();
+  const { userData } = useUserQuery();
   const [comment, setComment] = useState("");
   const { postCommentMutation } = useCommentQuery(slug);
 

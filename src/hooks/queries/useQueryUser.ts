@@ -10,3 +10,11 @@ export const useGetUser = () => {
 
   return { userData };
 };
+
+export const useUserQuery = () => {
+  const { data: userData, isLoading: userIsLoading } = useQuery(["user"], () =>
+    getUser()
+  );
+
+  return { userData, userIsLoading };
+};
