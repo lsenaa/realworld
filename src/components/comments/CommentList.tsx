@@ -1,22 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useQueryClient } from "@tanstack/react-query";
-import { deleteComment } from "../../apis/comments/comments";
 import { useCommentQuery } from "../../hooks/queries/useQueryComments";
 
 const CommentList = ({ comment, slug }: any) => {
-  const queryClient = useQueryClient();
   const { deleteCommentMutation } = useCommentQuery(slug);
-  // const onClickDeleteComment = () => {
-  //   deleteComment.mutate(
-  //     { slug, id: comment.id },
-  //     {
-  //       onSuccess: () => {
-  //         queryClient.invalidateQueries(["comments"]);
-  //       },
-  //     }
-  //   );
-  // };
+
+  const onClickDeleteComment = () => {
+    deleteCommentMutation({ slug, id: comment.id });
+  };
 
   return (
     <div className="card">
@@ -36,7 +27,7 @@ const CommentList = ({ comment, slug }: any) => {
           {comment?.author.username}
         </Link>
         <span className="date-posted">{comment?.updatedAt}</span>
-        <span className="mod-options">
+        <span className="mod-options" onClick={onClickDeleteComment}>
           <i className="ion-trash-a"></i>
         </span>
       </div>
