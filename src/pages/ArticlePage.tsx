@@ -6,18 +6,18 @@ import { useGetComments } from "../hooks/queries/useQueryComments";
 import { IArticle } from "./Homepage";
 
 export interface IComment {
-  comment: {
-    id: number;
-    createdAt: string;
-    updatedAt: string;
-    body: string;
-    author: {
-      username: string;
-      bio: string;
-      image: string;
-      following: boolean;
-    };
+  // comment: {
+  id: number;
+  createdAt: string;
+  updatedAt: string;
+  body: string;
+  author: {
+    username: string;
+    bio: string;
+    image: string;
+    following: boolean;
   };
+  // };
 }
 const ArticlePage = () => {
   const params = useParams();
@@ -105,7 +105,7 @@ const ArticlePage = () => {
           <div className="col-xs-12 col-md-8 offset-md-2">
             <CommentWrite slug={String(params.slug)} />
             {comments?.map((comment: IComment) => (
-              <CommentList comment={comment.comment} key={comment.comment.id} />
+              <CommentList comment={comment} key={comment.id} />
             ))}
           </div>
         </div>

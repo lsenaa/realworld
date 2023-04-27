@@ -1,6 +1,7 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { usePostComment } from "../../hooks/mutations/useMutationComment";
 import { useGetUser } from "../../hooks/queries/useQueryUser";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface ICommentWriteProps {
   slug: string;
@@ -10,17 +11,19 @@ const CommentWrite = ({ slug }: ICommentWriteProps) => {
   const { userData } = useGetUser();
   const [comment, setComment] = useState("");
   const postComment = usePostComment();
+  const queryClient = useQueryClient();
 
-  const onSubmitComment = () => {
+  const onSubmitComment = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     postComment.mutate(
       { body: comment, slug },
       {
         onSuccess: () => {
-          setComment("");
-          console.log("댓글 추가 성공!");
+          queryClient.invalidateQueries(["comments"]);
         },
       }
     );
+    setComment("");
   };
 
   return (
