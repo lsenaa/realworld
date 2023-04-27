@@ -1,15 +1,11 @@
 import { Link, useParams } from "react-router-dom";
 import CommentList from "../components/comments/CommentList";
 import CommentWrite from "../components/comments/CommentWrite";
-import { useGetArticlesSlug } from "../hooks/queries/useQueryArticles";
-import {
-  useCommentQuery,
-  // useGetComments,
-} from "../hooks/queries/useQueryComments";
+import { useArticleQuery } from "../hooks/queries/useQueryArticles";
+import { useCommentQuery } from "../hooks/queries/useQueryComments";
 import { IArticle } from "./Homepage";
 
 export interface IComment {
-  // comment: {
   id: number;
   createdAt: string;
   updatedAt: string;
@@ -20,13 +16,11 @@ export interface IComment {
     image: string;
     following: boolean;
   };
-  // };
 }
 const ArticlePage = () => {
   const params = useParams();
-  const data = useGetArticlesSlug(String(params.slug));
-  const article: IArticle = data.data?.data.article;
-  // const commentData = useGetComments(String(params.slug));
+  const { articleData } = useArticleQuery(String(params.slug));
+  const article: IArticle = articleData?.data.article;
   const { commentData } = useCommentQuery(String(params.slug));
   const comments: IComment[] = commentData?.data.comments;
 

@@ -5,16 +5,6 @@ import {
   postComment,
 } from "../../apis/comments/comments";
 
-// export const useGetComments = (slug: string) => {
-//   const { data, isLoading } = useQuery({
-//     queryKey: ["comments", slug],
-//     queryFn: () => getComments(slug),
-//     staleTime: 20000,
-//   });
-
-//   return { data, isLoading };
-// };
-
 export const useCommentQuery = (slug: string) => {
   const queryClient = useQueryClient();
 

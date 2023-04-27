@@ -1,10 +1,9 @@
-import { useGetArticles } from "../hooks/queries/useQueryArticles";
+import { useArticlesQuery } from "../hooks/queries/useQueryArticles";
 import { Link } from "react-router-dom";
 import ArticlePreview from "../components/article/ArticlePreview";
 import { useGetTags } from "../hooks/queries/useQueryTags";
 import { useContext, useState } from "react";
 import { UserContext } from "../contexts/UserContext";
-import { useGetFeed } from "../hooks/queries/useQueryArticles";
 
 export interface IArticle {
   author: {
@@ -23,9 +22,8 @@ export interface IArticle {
 
 const HomePage = () => {
   const { isLogin } = useContext(UserContext);
-  const { data, isLoading } = useGetArticles();
+  const { data, feedData, feedIsLoading } = useArticlesQuery();
   const { data: tagData, isLoading: tagIsLoading } = useGetTags();
-  const { data: feedData, isLoading: feedIsLoading } = useGetFeed();
   const [isGlobal, setIsGlobal] = useState(false);
 
   return (
@@ -65,7 +63,7 @@ const HomePage = () => {
               </ul>
             </div>
 
-            {isLoading ? (
+            {feedIsLoading ? (
               <p style={{ marginTop: "10px" }}>Loading...</p>
             ) : (
               <ArticlePreview
