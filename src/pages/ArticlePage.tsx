@@ -3,6 +3,7 @@ import CommentList from "../components/comments/CommentList";
 import CommentWrite from "../components/comments/CommentWrite";
 import { useArticleQuery } from "../hooks/queries/useQueryArticles";
 import { useCommentQuery } from "../hooks/queries/useQueryComments";
+import { useFavoriteQuery } from "../hooks/queries/useQueryFavorites";
 import { IArticle } from "./Homepage";
 
 export interface IComment {
@@ -23,6 +24,8 @@ const ArticlePage = () => {
   const article: IArticle = articleData?.data.article;
   const { commentData } = useCommentQuery(String(params.slug));
   const comments: IComment[] = commentData?.data.comments;
+  const { postFavoriteMutation, deleteFavoriteMutation } = useFavoriteQuery();
+  // console.log(article?.favorited);
 
   return (
     <div className="article-page">
