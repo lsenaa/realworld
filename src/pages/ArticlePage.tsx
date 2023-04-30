@@ -44,13 +44,7 @@ const ArticlePage = () => {
               </Link>
               <span className="date">{article?.updatedAt}</span>
             </div>
-            <Buttons
-              article={article}
-              // favorited={article?.favorited}
-              // author={article?.author.username}
-              // favoritesCount={article?.favoritesCount}
-              // slug={String(params.slug)}
-            />
+            <Buttons article={article} />
           </div>
         </div>
       </div>
@@ -83,13 +77,7 @@ const ArticlePage = () => {
               </Link>
               <span className="date">{article?.updatedAt}</span>
             </div>
-            <Buttons
-              article={article}
-              // favorited={article?.favorited}
-              // author={article?.author.username}
-              // favoritesCount={article?.favoritesCount}
-              // slug={String(params.slug)}
-            />
+            <Buttons article={article} />
           </div>
         </div>
 

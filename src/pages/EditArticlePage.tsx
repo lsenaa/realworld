@@ -9,7 +9,7 @@ import { IFormArticleData } from "./NewArticlePage";
 const EditArticlePage = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(location);
+  console.log(location.state.article);
   const params = useParams();
   const slug = String(params.slug);
   const { articleData } = useArticleQuery(slug);
