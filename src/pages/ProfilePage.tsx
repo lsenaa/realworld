@@ -1,4 +1,17 @@
+import { useParams } from "react-router-dom";
+import ArticlePreview from "../components/article/ArticlePreview";
+import { useProfileQuery } from "../hooks/queries/useQueryProfile";
+import { useUserQuery } from "../hooks/queries/useQueryUser";
+
 const ProfilePage = () => {
+  const { userData } = useUserQuery();
+  const params = useParams();
+  // console.log(params.username);
+  // const username = userData?.data.profile.username;
+  // console.log(userData?.data.profile.username);
+  // const { profileData } = useProfileQuery(String(params.username));
+  // console.log(profileData);
+
   return (
     <div className="profile-page">
       <div className="user-info">
@@ -38,7 +51,7 @@ const ProfilePage = () => {
               </ul>
             </div>
 
-            <div className="article-preview">
+            {/* <div className="article-preview">
               <div className="article-meta">
                 <a href="">
                   <img src="http://i.imgur.com/Qr71crq.jpg" />
@@ -87,7 +100,7 @@ const ProfilePage = () => {
                   <li className="tag-default tag-pill tag-outline">Song</li>
                 </ul>
               </a>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

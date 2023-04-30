@@ -10,6 +10,15 @@ export const getArticles = async () => {
   }
 };
 
+export const getMyArticles = async (author: string) => {
+  try {
+    const data = await apiClient.get(`/articles/${author}`);
+    return data;
+  } catch (e) {
+    console.error(e);
+  }
+};
+
 export const getFeed = async () => {
   try {
     const data = await apiClient.get(`/articles/feed`);

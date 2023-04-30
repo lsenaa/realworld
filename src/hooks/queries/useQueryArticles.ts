@@ -4,6 +4,7 @@ import {
   getArticles,
   getArticlesSlug,
   getFeed,
+  getMyArticles,
   postArticle,
   putArticle,
 } from "../../apis/articles/articles";
@@ -58,4 +59,13 @@ export const useArticleQuery = (slug: string) => {
     articleData,
     articleIsLoading,
   };
+};
+
+export const useMyArticleQuery = (author: string) => {
+  const { data: myArticleData, isLoading: myArticleIsLoading } = useQuery(
+    ["articles", "author"],
+    () => getMyArticles(author)
+  );
+
+  return { myArticleData, myArticleIsLoading };
 };
