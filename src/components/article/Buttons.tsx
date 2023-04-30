@@ -17,7 +17,7 @@ const Buttons = (article: any) => {
   const { deleteArticleMutation } = useArticlesQuery();
 
   const userName = String(userData?.data.user.username);
-  console.log(userIsLoading);
+
   const onToggleFavorite = () => {
     if (article.favorited) {
       deleteFavoriteMutation(article.slug);
@@ -32,8 +32,9 @@ const Buttons = (article: any) => {
 
   return (
     <>
-      {userIsLoading && <div>userName Loading...</div>}
-      {userName === article.author.username ? (
+      <div>확인확인확인</div>
+      <div>{userName}</div>
+      {/* {userName === article.author.username ? (
         <>
           <Link to={`/editor/${article.slug}`} state={{ article }}>
             <button className="btn btn-sm btn-outline-secondary">
@@ -69,7 +70,7 @@ const Buttons = (article: any) => {
             <span className="counter">({article.favoritesCount})</span>
           </button>
         </>
-      )}
+      )} */}
     </>
     // <>
     //   {userName === author ? (
