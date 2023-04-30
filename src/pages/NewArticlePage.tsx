@@ -40,7 +40,7 @@ const NewArticlePage = () => {
     event.preventDefault();
     postArticle(values)
       .then((res) => {
-        navigate(`/article/${res.article.slug}`, { replace: true });
+        navigate(`/article/${res.article.slug}`);
       })
       .catch((err) => {
         setError({
