@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { postArticle } from "../apis/articles/articles";
 
-interface IFormArticleData {
+export interface IFormArticleData {
   title: string;
   description: string;
   body: string;

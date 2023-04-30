@@ -5,22 +5,6 @@ import { useTagQuery } from "../hooks/queries/useQueryTags";
 import { useContext, useState } from "react";
 import { UserContext } from "../contexts/UserContext";
 
-export interface IArticle {
-  author: {
-    username: string;
-    image: string;
-  };
-  body: string;
-  createdAt: string;
-  description: string;
-  favorited: boolean;
-  favoritesCount: number;
-  slug: string;
-  tagList: string[];
-  title: string;
-  updatedAt: string;
-}
-
 const HomePage = () => {
   const { isLogin } = useContext(UserContext);
   const { data, feedData, feedIsLoading } = useArticlesQuery();

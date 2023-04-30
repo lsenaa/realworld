@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-interface IArticle {
+export interface IArticle {
   author: {
     username: string;
     image: string;
@@ -8,6 +8,7 @@ interface IArticle {
   body: string;
   createdAt: string;
   description: string;
+  favorited: boolean;
   favoritesCount: number;
   slug: string;
   tagList: string[];

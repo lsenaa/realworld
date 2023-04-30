@@ -1,10 +1,10 @@
 import { Link, useParams } from "react-router-dom";
+import { IArticle } from "../components/article/ArticlePreview";
 import Buttons from "../components/article/Buttons";
 import CommentList from "../components/comments/CommentList";
 import CommentWrite from "../components/comments/CommentWrite";
 import { useArticleQuery } from "../hooks/queries/useQueryArticles";
 import { useCommentQuery } from "../hooks/queries/useQueryComments";
-import { IArticle } from "./Homepage";
 
 export interface IComment {
   id: number;
@@ -45,10 +45,11 @@ const ArticlePage = () => {
               <span className="date">{article?.updatedAt}</span>
             </div>
             <Buttons
-              favorited={article?.favorited}
-              author={article?.author.username}
-              favoritesCount={article?.favoritesCount}
-              slug={String(params.slug)}
+              article={article}
+              // favorited={article?.favorited}
+              // author={article?.author.username}
+              // favoritesCount={article?.favoritesCount}
+              // slug={String(params.slug)}
             />
           </div>
         </div>
@@ -83,10 +84,11 @@ const ArticlePage = () => {
               <span className="date">{article?.updatedAt}</span>
             </div>
             <Buttons
-              favorited={article?.favorited}
-              author={article?.author.username}
-              favoritesCount={article?.favoritesCount}
-              slug={String(params.slug)}
+              article={article}
+              // favorited={article?.favorited}
+              // author={article?.author.username}
+              // favoritesCount={article?.favoritesCount}
+              // slug={String(params.slug)}
             />
           </div>
         </div>
