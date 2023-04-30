@@ -16,8 +16,11 @@ export interface IArticle {
   updatedAt: string;
 }
 
-const ArticlePreview = (data: any) => {
-  return data?.data.map((article: IArticle) => (
+const ArticlePreview = (data: any, loading: boolean) => {
+  // if (loading) return <p style={{ marginTop: "10px" }}>Loading...</p>;
+  console.log(data);
+
+  return data.data.map((article: IArticle) => (
     <div className="article-preview" key={article.slug}>
       <div className="article-meta">
         <Link to={`/profile/${article.author.username}`}>

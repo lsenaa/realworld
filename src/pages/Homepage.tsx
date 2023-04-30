@@ -7,7 +7,8 @@ import { UserContext } from "../contexts/UserContext";
 
 const HomePage = () => {
   const { isLogin } = useContext(UserContext);
-  const { data, feedData, feedIsLoading } = useArticlesQuery();
+  const { globalData, feedData, globalIsLoading, feedIsLoading } =
+    useArticlesQuery();
   const { tagData, tagIsLoading } = useTagQuery();
   const [isGlobal, setIsGlobal] = useState(false);
 
@@ -52,7 +53,10 @@ const HomePage = () => {
               <p style={{ marginTop: "10px" }}>Loading...</p>
             ) : (
               <ArticlePreview
-                data={isGlobal ? data?.data.articles : feedData?.data.articles}
+                data={
+                  isGlobal ? globalData?.data.articles : feedData?.data.articles
+                }
+                loading={isGlobal ? globalIsLoading : feedIsLoading}
               />
             )}
           </div>

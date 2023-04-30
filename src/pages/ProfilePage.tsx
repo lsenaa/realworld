@@ -1,11 +1,13 @@
 import { Link, useParams } from "react-router-dom";
 import ArticlePreview from "../components/article/ArticlePreview";
 import { useMyArticleQuery } from "../hooks/queries/useQueryArticles";
+import { useUserQuery } from "../hooks/queries/useQueryUser";
 
 const ProfilePage = () => {
-  const params = useParams();
-  const username = String(params.username);
-  const { myArticleData } = useMyArticleQuery(username);
+  // const params = useParams();
+  const { userData } = useUserQuery();
+  const username = String(userData?.data.user.username);
+  const { myArticleData, myArticleIsLoading } = useMyArticleQuery(username);
 
   return (
     <div className="profile-page">
@@ -13,15 +15,16 @@ const ProfilePage = () => {
         <div className="container">
           <div className="row">
             <div className="col-xs-12 col-md-10 offset-md-1">
-              <img src="http://i.imgur.com/Qr71crq.jpg" className="user-img" />
-              <h4>Eric Simons</h4>
-              <p>
-                Cofounder @GoThinkster, lived in Aol's HQ for a few months,
-                kinda looks like Peeta from the Hunger Games
-              </p>
+              <img
+                src={userData?.data.user.image}
+                className="user-img"
+                alt="profile"
+              />
+              <h4>{userData?.data.user.username}</h4>
+              <p>{userData?.data.user.bio}</p>
               <button className="btn btn-sm btn-outline-secondary action-btn">
                 <i className="ion-plus-round"></i>
-                &nbsp; Follow Eric Simons
+                &nbsp; Follow {userData?.data.user.username}
               </button>
             </div>
           </div>
@@ -45,7 +48,10 @@ const ProfilePage = () => {
                 </li>
               </ul>
             </div>
-            <ArticlePreview data={myArticleData?.data.articles} />
+            <ArticlePreview
+              data={myArticleData?.data.articles}
+              loading={myArticleIsLoading}
+            />
           </div>
         </div>
       </div>

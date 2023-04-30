@@ -12,8 +12,9 @@ import {
 export const useArticlesQuery = () => {
   const queryClient = useQueryClient();
 
-  const { data, isLoading: listIsLoading } = useQuery(["articles"], () =>
-    getArticles()
+  const { data: globalData, isLoading: globalIsLoading } = useQuery(
+    ["articles"],
+    () => getArticles()
   );
 
   const { data: feedData, isLoading: feedIsLoading } = useQuery(["feed"], () =>
@@ -39,9 +40,9 @@ export const useArticlesQuery = () => {
   });
 
   return {
-    data,
+    globalData,
     feedData,
-    listIsLoading,
+    globalIsLoading,
     feedIsLoading,
     postArticleMutation,
     putArticleMutation,
