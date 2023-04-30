@@ -1,3 +1,4 @@
+import { useArticlesQuery } from "../../hooks/queries/useQueryArticles";
 import { useFavoriteQuery } from "../../hooks/queries/useQueryFavorites";
 import { useUserQuery } from "../../hooks/queries/useQueryUser";
 
@@ -11,6 +12,7 @@ interface IButtons {
 const Buttons = ({ favorited, author, favoritesCount, slug }: IButtons) => {
   const { userData } = useUserQuery();
   const { postFavoriteMutation, deleteFavoriteMutation } = useFavoriteQuery();
+  const { deleteArticleMutation } = useArticlesQuery();
 
   const userName = String(userData?.data.user.username);
 
@@ -22,6 +24,10 @@ const Buttons = ({ favorited, author, favoritesCount, slug }: IButtons) => {
     }
   };
 
+  const onDeleteArticle = () => {
+    deleteArticleMutation(slug);
+  };
+
   return (
     <>
       {userName === author ? (
@@ -31,7 +37,10 @@ const Buttons = ({ favorited, author, favoritesCount, slug }: IButtons) => {
             &nbsp; Edit Article
           </button>
           &nbsp;&nbsp;
-          <button className="btn btn-outline-danger btn-sm">
+          <button
+            className="btn btn-outline-danger btn-sm"
+            onClick={onDeleteArticle}
+          >
             <i className="ion-trash-a"></i>
             &nbsp; Delete Article
           </button>
