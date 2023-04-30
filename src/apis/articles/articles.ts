@@ -12,7 +12,7 @@ export const getArticles = async () => {
 
 export const getMyArticles = async (author: string) => {
   try {
-    const data = await apiClient.get(`/articles/${author}`);
+    const data = await apiClient.get(`/articles${`?author=${author}&`}`);
     return data;
   } catch (e) {
     console.error(e);
