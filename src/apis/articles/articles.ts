@@ -38,6 +38,7 @@ export const postArticle = async ({
     const { data } = await apiClient.post(`/articles`, {
       article: { title, description, body, tagList },
     });
+    console.log(data);
     return data;
   } catch (e) {
     console.error(e);
