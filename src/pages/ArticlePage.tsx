@@ -1,9 +1,9 @@
 import { Link, useParams } from "react-router-dom";
+import Buttons from "../components/article/Buttons";
 import CommentList from "../components/comments/CommentList";
 import CommentWrite from "../components/comments/CommentWrite";
 import { useArticleQuery } from "../hooks/queries/useQueryArticles";
 import { useCommentQuery } from "../hooks/queries/useQueryComments";
-import { useFavoriteQuery } from "../hooks/queries/useQueryFavorites";
 import { IArticle } from "./Homepage";
 
 export interface IComment {
@@ -24,15 +24,6 @@ const ArticlePage = () => {
   const article: IArticle = articleData?.data.article;
   const { commentData } = useCommentQuery(String(params.slug));
   const comments: IComment[] = commentData?.data.comments;
-  const { postFavoriteMutation, deleteFavoriteMutation } = useFavoriteQuery();
-
-  const onToggleFavorite = () => {
-    if (article?.favorited) {
-      deleteFavoriteMutation(String(params.slug));
-    } else {
-      postFavoriteMutation(String(params.slug));
-    }
-  };
 
   return (
     <div className="article-page">
@@ -53,24 +44,12 @@ const ArticlePage = () => {
               </Link>
               <span className="date">{article?.updatedAt}</span>
             </div>
-            <button className="btn btn-sm btn-outline-secondary">
-              <i className="ion-plus-round"></i>
-              &nbsp; Follow {article?.author.username}
-              <span className="counter">(10)</span>
-            </button>
-            &nbsp;&nbsp;
-            <button
-              className={`btn btn-sm ${
-                article?.favorited ? "btn-primary" : "btn-outline-primary"
-              }`}
-              onClick={onToggleFavorite}
-            >
-              <i className="ion-heart"></i>
-              &nbsp; {article?.favorited
-                ? "UnFavorite"
-                : "Favorite"} Article{" "}
-              <span className="counter">({article?.favoritesCount})</span>
-            </button>
+            <Buttons
+              favorited={article?.favorited}
+              author={article?.author.username}
+              favoritesCount={article?.favoritesCount}
+              slug={String(params.slug)}
+            />
           </div>
         </div>
       </div>
@@ -103,23 +82,12 @@ const ArticlePage = () => {
               </Link>
               <span className="date">{article?.updatedAt}</span>
             </div>
-            <button className="btn btn-sm btn-outline-secondary">
-              <i className="ion-plus-round"></i>
-              &nbsp; Follow {article?.author.username}
-            </button>
-            &nbsp;
-            <button
-              className={`btn btn-sm ${
-                article?.favorited ? "btn-primary" : "btn-outline-primary"
-              }`}
-              onClick={onToggleFavorite}
-            >
-              <i className="ion-heart"></i>
-              &nbsp; {article?.favorited
-                ? "UnFavorite"
-                : "Favorite"} Article{" "}
-              <span className="counter">({article?.favoritesCount})</span>
-            </button>
+            <Buttons
+              favorited={article?.favorited}
+              author={article?.author.username}
+              favoritesCount={article?.favoritesCount}
+              slug={String(params.slug)}
+            />
           </div>
         </div>
 
