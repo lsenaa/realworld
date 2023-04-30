@@ -25,7 +25,14 @@ const ArticlePage = () => {
   const { commentData } = useCommentQuery(String(params.slug));
   const comments: IComment[] = commentData?.data.comments;
   const { postFavoriteMutation, deleteFavoriteMutation } = useFavoriteQuery();
-  // console.log(article?.favorited);
+
+  const onToggleFavorite = () => {
+    if (article?.favorited) {
+      deleteFavoriteMutation(String(params.slug));
+    } else {
+      postFavoriteMutation(String(params.slug));
+    }
+  };
 
   return (
     <div className="article-page">
@@ -52,9 +59,16 @@ const ArticlePage = () => {
               <span className="counter">(10)</span>
             </button>
             &nbsp;&nbsp;
-            <button className="btn btn-sm btn-outline-primary">
+            <button
+              className={`btn btn-sm ${
+                article?.favorited ? "btn-primary" : "btn-outline-primary"
+              }`}
+              onClick={onToggleFavorite}
+            >
               <i className="ion-heart"></i>
-              &nbsp; Favorite Article{" "}
+              &nbsp; {article?.favorited
+                ? "UnFavorite"
+                : "Favorite"} Article{" "}
               <span className="counter">({article?.favoritesCount})</span>
             </button>
           </div>
@@ -94,9 +108,16 @@ const ArticlePage = () => {
               &nbsp; Follow {article?.author.username}
             </button>
             &nbsp;
-            <button className="btn btn-sm btn-outline-primary">
+            <button
+              className={`btn btn-sm ${
+                article?.favorited ? "btn-primary" : "btn-outline-primary"
+              }`}
+              onClick={onToggleFavorite}
+            >
               <i className="ion-heart"></i>
-              &nbsp; Favorite Article{" "}
+              &nbsp; {article?.favorited
+                ? "UnFavorite"
+                : "Favorite"} Article{" "}
               <span className="counter">({article?.favoritesCount})</span>
             </button>
           </div>
