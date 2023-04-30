@@ -4,10 +4,12 @@ import { useMyArticleQuery } from "../hooks/queries/useQueryArticles";
 import { useUserQuery } from "../hooks/queries/useQueryUser";
 
 const ProfilePage = () => {
-  // const params = useParams();
+  const params = useParams();
   const { userData } = useUserQuery();
-  const username = String(userData?.data.user.username);
+  const username = String(params.username);
+  // const username = String(userData?.data.user.username);
   const { myArticleData, myArticleIsLoading } = useMyArticleQuery(username);
+  console.log(myArticleData?.data.articles);
 
   return (
     <div className="profile-page">

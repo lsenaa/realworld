@@ -49,16 +49,12 @@ const HomePage = () => {
               </ul>
             </div>
 
-            {feedIsLoading ? (
-              <p style={{ marginTop: "10px" }}>Loading...</p>
-            ) : (
-              <ArticlePreview
-                data={
-                  isGlobal ? globalData?.data.articles : feedData?.data.articles
-                }
-                loading={isGlobal ? globalIsLoading : feedIsLoading}
-              />
-            )}
+            <ArticlePreview
+              data={
+                isGlobal ? globalData?.data.articles : feedData?.data.articles
+              }
+              loading={isGlobal ? globalIsLoading : feedIsLoading}
+            />
           </div>
 
           <div className="col-md-3">
