@@ -1,8 +1,10 @@
 import { apiClient } from "./client";
 
 export const getTags = async () => {
-  return await apiClient({
-    method: "get",
-    url: `/tags`,
-  });
+  try {
+    const data = await apiClient.get(`/tags`);
+    return data;
+  } catch (e) {
+    console.error(e);
+  }
 };

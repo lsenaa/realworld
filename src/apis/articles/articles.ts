@@ -2,17 +2,30 @@ import { apiClient } from "../client";
 import { IPostArticle, IPutArticle } from "./articlesType";
 
 export const getArticles = async () => {
-  return await apiClient({
-    method: "get",
-    url: `/articles`,
-  });
+  try {
+    const data = await apiClient.get(`/articles`);
+    return data;
+  } catch (e) {
+    console.error(e);
+  }
 };
 
 export const getFeed = async () => {
-  return await apiClient({
-    method: "get",
-    url: `/articles/feed`,
-  });
+  try {
+    const data = await apiClient.get(`/articles/feed`);
+    return data;
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+export const getArticlesSlug = async (slug: string) => {
+  try {
+    const data = await apiClient.get(`/articles/${slug}`);
+    return data;
+  } catch (e) {
+    console.error(e);
+  }
 };
 
 export const postArticle = async ({
@@ -21,25 +34,14 @@ export const postArticle = async ({
   body,
   tagList,
 }: IPostArticle) => {
-  return await apiClient({
-    method: "post",
-    url: `/articles`,
-    data: {
-      article: {
-        title,
-        description,
-        body,
-        tagList,
-      },
-    },
-  });
-};
-
-export const getArticlesSlug = async (slug: string) => {
-  return await apiClient({
-    method: "get",
-    url: `/articles/${slug}`,
-  });
+  try {
+    const { data } = await apiClient.post(`/articles`, {
+      article: { title, description, body, tagList },
+    });
+    return data;
+  } catch (e) {
+    console.error(e);
+  }
 };
 
 export const putArticle = async ({
@@ -49,23 +51,21 @@ export const putArticle = async ({
   body,
   tagList,
 }: IPutArticle) => {
-  return await apiClient({
-    method: "put",
-    url: `/articles/${slug}`,
-    data: {
-      article: {
-        title,
-        description,
-        body,
-        tagList,
-      },
-    },
-  });
+  try {
+    const { data } = await apiClient.post(`/articles/${slug}`, {
+      article: { title, description, body, tagList },
+    });
+    return data;
+  } catch (e) {
+    console.error(e);
+  }
 };
 
 export const DeleteArticle = async (slug: string) => {
-  return await apiClient({
-    method: "delete",
-    url: `/articles/${slug}`,
-  });
+  try {
+    const { data } = await apiClient.delete(`/articles/${slug}`);
+    return data;
+  } catch (e) {
+    console.error(e);
+  }
 };

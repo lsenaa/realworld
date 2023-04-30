@@ -1,22 +1,28 @@
 import { apiClient } from "./client";
 
 export const getProfile = async (username: string) => {
-  return await apiClient({
-    method: "get",
-    url: `/profiles/${username}`,
-  });
+  try {
+    const data = await apiClient.get(`/profiles/${username}`);
+    return data;
+  } catch (e) {
+    console.error(e);
+  }
 };
 
 export const postFollow = async (username: string) => {
-  return await apiClient({
-    method: "post",
-    url: `/profiles/${username}/follow`,
-  });
+  try {
+    const data = await apiClient.post(`/profiles/${username}/follow`);
+    return data;
+  } catch (e) {
+    console.error(e);
+  }
 };
 
 export const deleteFollow = async (username: string) => {
-  return await apiClient({
-    method: "delete",
-    url: `/profiles/${username}/follow`,
-  });
+  try {
+    const data = await apiClient.delete(`/profiles/${username}/follow`);
+    return data;
+  } catch (e) {
+    console.error(e);
+  }
 };

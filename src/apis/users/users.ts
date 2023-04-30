@@ -2,16 +2,14 @@ import { apiClient } from "../client";
 import { IPostLogin, IPostRegister, IPutUser } from "./usersType";
 
 export const postLogin = async ({ email, password }: IPostLogin) => {
-  return await apiClient({
-    method: "post",
-    url: `/users/login`,
-    data: {
-      user: {
-        email,
-        password,
-      },
-    },
-  });
+  try {
+    const { data } = await apiClient.post(`/users/login`, {
+      user: { email, password },
+    });
+    return data;
+  } catch (e) {
+    console.error(e);
+  }
 };
 
 export const postRegister = async ({
@@ -19,30 +17,30 @@ export const postRegister = async ({
   email,
   password,
 }: IPostRegister) => {
-  return await apiClient({
-    method: "post",
-    url: `/users`,
-    data: {
-      user: {
-        username,
-        email,
-        password,
-      },
-    },
-  });
+  try {
+    const { data } = await apiClient.post(`/users/login`, {
+      user: { username, email, password },
+    });
+    return data;
+  } catch (e) {
+    console.error(e);
+  }
 };
 
 export const getUser = async () => {
-  return await apiClient({
-    method: "get",
-    url: `/user`,
-  });
+  try {
+    const data = await apiClient.get(`user`);
+    return data;
+  } catch (e) {
+    console.error(e);
+  }
 };
 
-export const putUser = async (data: { user: IPutUser }) => {
-  return await apiClient({
-    method: "put",
-    url: "/user",
-    data,
-  });
+export const putUser = async (user: IPutUser) => {
+  try {
+    const data = await apiClient.put(`user`, { user });
+    return data;
+  } catch (e) {
+    console.error(e);
+  }
 };
