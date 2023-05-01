@@ -72,10 +72,10 @@ export const useMyArticleQuery = (author: string) => {
   return { myArticleData, myArticleIsLoading };
 };
 
-export const useFavoriteArticleQuery = (username: string) => {
+export const useFavoriteArticleQuery = (favorited: string) => {
   const { data: favoriteData, isLoading: favoriteIsLoading } = useQuery(
-    ["articles", "author"],
-    () => getFavoitedArticles(username)
+    ["articles", "favorited"],
+    () => getFavoitedArticles(favorited)
   );
 
   return { favoriteData, favoriteIsLoading };

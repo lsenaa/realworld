@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import ArticlePreview from "../components/article/ArticlePreview";
-import { useMyArticleQuery } from "../hooks/queries/useQueryArticles";
+import {
+  useFavoriteArticleQuery,
+  useMyArticleQuery,
+} from "../hooks/queries/useQueryArticles";
 import { useUserQuery } from "../hooks/queries/useQueryUser";
 
 const ProfilePage = () => {
@@ -9,6 +12,7 @@ const ProfilePage = () => {
   const { userData } = useUserQuery();
   const username = String(params.username);
   const { myArticleData, myArticleIsLoading } = useMyArticleQuery(username);
+  const { favoriteData, favoriteIsLoading } = useFavoriteArticleQuery(username);
   const [isFavorite, setisFavorite] = useState(false);
 
   return (
@@ -59,8 +63,12 @@ const ProfilePage = () => {
               </ul>
             </div>
             <ArticlePreview
-              data={myArticleData?.data.articles}
-              loading={myArticleIsLoading}
+              data={
+                isFavorite
+                  ? favoriteData?.data.articles
+                  : myArticleData?.data.articles
+              }
+              loading={isFavorite ? favoriteIsLoading : myArticleIsLoading}
             />
           </div>
         </div>

@@ -19,9 +19,9 @@ export const getMyArticles = async (author: string) => {
   }
 };
 
-export const getFavoitedArticles = async (username: string) => {
+export const getFavoitedArticles = async (favorited: string) => {
   try {
-    const data = await apiClient.get(`/articles${`?username=${username}&`}`);
+    const data = await apiClient.get(`/articles${`?favorited=${favorited}&`}`);
     return data;
   } catch (e) {
     console.log(e);
