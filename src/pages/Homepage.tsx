@@ -10,7 +10,7 @@ const HomePage = () => {
   const { globalData, feedData, globalIsLoading, feedIsLoading } =
     useArticlesQuery();
   const { tagData, tagIsLoading } = useTagQuery();
-  const [isGlobal, setIsGlobal] = useState(false);
+  const [isGlobal, setIsGlobal] = useState(true);
 
   return (
     <div className="home-page">
