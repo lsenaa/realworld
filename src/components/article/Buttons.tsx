@@ -1,14 +1,7 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useArticlesQuery } from "../../hooks/queries/useQueryArticles";
 import { useFavoriteQuery } from "../../hooks/queries/useQueryFavorites";
 import { useUserQuery } from "../../hooks/queries/useQueryUser";
-
-// interface IButtons {
-//   favorited: boolean;
-//   author: string;
-//   favoritesCount: number;
-//   slug: string;
-// }
 
 interface IButtonProps {
   article: {
@@ -29,6 +22,7 @@ interface IButtonProps {
 }
 
 const Buttons = (article: IButtonProps) => {
+  const navigate = useNavigate();
   const { userData } = useUserQuery();
   const { postFavoriteMutation, deleteFavoriteMutation } = useFavoriteQuery();
   const { deleteArticleMutation } = useArticlesQuery();
@@ -42,12 +36,10 @@ const Buttons = (article: IButtonProps) => {
       postFavoriteMutation(article.article.slug);
     }
   };
-
   const onDeleteArticle = () => {
     deleteArticleMutation(article.article.slug);
+    navigate(`/profile/${article.article.author.username}`);
   };
-
-  console.log(article);
 
   return (
     <>
