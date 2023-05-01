@@ -40,7 +40,6 @@ const SignInPage = () => {
         navigate("/", { replace: true });
       })
       .catch((err) => {
-        console.log(err);
         setError({
           email: err.response.data.errors.email,
           password: err.response.data.errors.password,
