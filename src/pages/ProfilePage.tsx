@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import ArticlePreview from "../components/article/ArticlePreview";
 import { useMyArticleQuery } from "../hooks/queries/useQueryArticles";
@@ -8,6 +9,7 @@ const ProfilePage = () => {
   const { userData } = useUserQuery();
   const username = String(params.username);
   const { myArticleData, myArticleIsLoading } = useMyArticleQuery(username);
+  const [isFavorite, setisFavorite] = useState(false);
 
   return (
     <div className="profile-page">
@@ -37,12 +39,20 @@ const ProfilePage = () => {
             <div className="articles-toggle">
               <ul className="nav nav-pills outline-active">
                 <li className="nav-item">
-                  <Link to="" className="nav-link active">
+                  <Link
+                    to={`/profile/${userData?.data.user.username}`}
+                    className={`nav-link ${isFavorite ? "" : "active"}`}
+                    onClick={() => setisFavorite(false)}
+                  >
                     My Articles
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link to="" className="nav-link">
+                  <Link
+                    to={`/profile/${userData?.data.user.username}`}
+                    className={`nav-link ${isFavorite ? "active" : ""}`}
+                    onClick={() => setisFavorite(true)}
+                  >
                     Favorited Articles
                   </Link>
                 </li>
