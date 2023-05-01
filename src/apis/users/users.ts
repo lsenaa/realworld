@@ -18,7 +18,7 @@ export const postRegister = async ({
   password,
 }: IPostRegister) => {
   try {
-    const { data } = await apiClient.post(`/users/login`, {
+    const { data } = await apiClient.post(`/users`, {
       user: { username, email, password },
     });
     return data;
@@ -29,7 +29,7 @@ export const postRegister = async ({
 
 export const getUser = async () => {
   try {
-    const data = await apiClient.get(`user`);
+    const data = await apiClient.get(`/user`);
     return data;
   } catch (e) {
     console.error(e);
@@ -38,7 +38,7 @@ export const getUser = async () => {
 
 export const putUser = async (user: IPutUser) => {
   try {
-    const data = await apiClient.put(`user`, { user });
+    const data = await apiClient.put(`/user`, { user });
     return data;
   } catch (e) {
     console.error(e);
