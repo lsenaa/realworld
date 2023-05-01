@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { postRegister } from "../apis/users/users";
+import { useIsLogin } from "../hooks/useIsLogin";
 
 interface IFormRegisterData {
   email: string;
@@ -10,6 +11,7 @@ interface IFormRegisterData {
 
 const SignUpPage = () => {
   const navigate = useNavigate();
+  const { setIsLogin } = useIsLogin();
 
   const [values, setValues] = useState<IFormRegisterData>({
     email: "",
@@ -35,7 +37,7 @@ const SignUpPage = () => {
     postRegister(values)
       .then((res) => {
         localStorage.setToken("accessToken", res.data.user.token);
-        // setIsLogin(!!token.getToken(ACCESS_TOKEN_KEY));
+        setIsLogin(localStorage.getToken("accessToken"));
         navigate("/", { replace: true });
       })
       .catch((err) => {
