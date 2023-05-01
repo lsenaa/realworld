@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { putUser } from "../apis/users/users";
+import { UserContext } from "../contexts/UserContext";
 import { useUserQuery } from "../hooks/queries/useQueryUser";
 
 interface IFormProfileData {
@@ -40,23 +41,35 @@ const SettingPage = () => {
       [e.target.name]: e.target.value,
     });
   };
+  // console.log(values);
 
   const onSubmitSetting = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // putUserMutation(values)
-    putUser(values)
-      .then((res) => {
-        navigate("/");
-      })
-      .catch((err) => {
-        setError({
-          image: err.response.data.errors.image,
-          username: err.response.data.errors.username,
-          bio: err.response.data.errors.bio,
-          email: err.response.data.errors.email,
-          password: err.response.data.errors.password,
-        });
-      });
+    putUserMutation(values);
+    navigate(`/profile/${userData?.data.user.username}`);
+
+    // putUser(values)
+    // .then((res) => {
+    //     navigate("/");
+    //   })
+    //   .catch((err) => {
+    //     setError({
+    //       image: err.response.data.errors.image,
+    //       username: err.response.data.errors.username,
+    //       bio: err.response.data.errors.bio,
+    //       email: err.response.data.errors.email,
+    //       password: err.response.data.errors.password,
+    //     });
+    //   });
+  };
+
+  const { setIsLogin } = useContext(UserContext);
+
+  const onClickLogout = () => {
+    localStorage.removeItem("accessToken");
+    setIsLogin("");
+    navigate("/", { replace: true });
+    console.log("로그아웃 확인");
   };
 
   return (
@@ -131,7 +144,11 @@ const SettingPage = () => {
               </fieldset>
             </form>
             <hr />
-            <button type="button" className="btn btn-outline-danger">
+            <button
+              type="button"
+              className="btn btn-outline-danger"
+              onClick={onClickLogout}
+            >
               Or click here to logout.
             </button>
           </div>
