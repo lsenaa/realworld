@@ -35,7 +35,7 @@ const SignInPage = () => {
     e.preventDefault();
     postLogin(values)
       .then((res) => {
-        setToken("accessToken", res.data.user.token);
+        setToken("accessToken", res.user.token);
         setIsLogin(getToken("accessToken"));
         navigate("/", { replace: true });
       })
