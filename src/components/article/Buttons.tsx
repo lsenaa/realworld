@@ -28,7 +28,9 @@ const Buttons = (article: IButtonProps) => {
   const { userData } = useUserQuery();
   const { postFavoriteMutation, deleteFavoriteMutation } = useFavoriteQuery();
   const { deleteArticleMutation } = useArticlesQuery();
-  // const { profileData } = useProfileQuery(article?.article?.author.username);
+  const { postFollowMutation, deleteFollowMutation } = useProfileQuery(
+    article?.article?.author.username
+  );
 
   const userName = String(userData?.data.user.username);
   const following = article?.article?.author.following;
@@ -40,9 +42,18 @@ const Buttons = (article: IButtonProps) => {
       postFavoriteMutation(article.article.slug);
     }
   };
+
   const onDeleteArticle = () => {
     deleteArticleMutation(article.article.slug);
     navigate(`/profile/${article.article.author.username}`);
+  };
+
+  const onToggleFollowing = () => {
+    if (following) {
+      deleteFollowMutation(article?.article?.author.username);
+    } else {
+      postFollowMutation(article?.article?.author.username);
+    }
   };
 
   return (
@@ -75,6 +86,7 @@ const Buttons = (article: IButtonProps) => {
                 ? `action-btn ng-binding btn-secondary`
                 : `btn-outline-secondary`
             }`}
+            onClick={onToggleFollowing}
           >
             <i className="ion-plus-round"></i>
             &nbsp; {following ? "UnFollow" : "Follow"}{" "}
