@@ -8,6 +8,6 @@ const jwtToken = getToken("accessToken");
 export const apiClient = axios.create({
   baseURL: BASE_URL,
   headers: {
-    Authorization: `Bearer ${jwtToken}`,
+    Authorization: !!jwtToken ? `Bearer ${jwtToken}` : "",
   },
 });
