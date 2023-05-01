@@ -5,6 +5,7 @@ import CommentList from "../components/comments/CommentList";
 import CommentWrite from "../components/comments/CommentWrite";
 import { useArticleQuery } from "../hooks/queries/useQueryArticles";
 import { useCommentQuery } from "../hooks/queries/useQueryComments";
+import { convertDate } from "../libs/date";
 
 export interface IComment {
   id: number;
@@ -42,7 +43,11 @@ const ArticlePage = () => {
               >
                 {article?.author.username}
               </Link>
-              <span className="date">{article?.updatedAt}</span>
+              <span className="date">
+                {convertDate(
+                  article?.updatedAt ? article.updatedAt : article.createdAt
+                )}
+              </span>
             </div>
             <Buttons article={article} />
           </div>
@@ -75,7 +80,11 @@ const ArticlePage = () => {
               >
                 {article?.author.username}
               </Link>
-              <span className="date">{article?.updatedAt}</span>
+              <span className="date">
+                {convertDate(
+                  article?.updatedAt ? article?.updatedAt : article?.createdAt
+                )}
+              </span>
             </div>
             <Buttons article={article} />
           </div>

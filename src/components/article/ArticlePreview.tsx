@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { convertDate } from "../../libs/date";
 
 export interface IArticle {
   author: {
@@ -43,7 +44,11 @@ const ArticlePreview = ({ data, loading }: IArticlePreviewProps) => {
               >
                 {article.author.username}
               </Link>
-              <span className="date">{article.createdAt}</span>
+              <span className="date">
+                {convertDate(
+                  article.updatedAt ? article.updatedAt : article.createdAt
+                )}
+              </span>
             </div>
             <button className="btn btn-outline-primary btn-sm pull-xs-right">
               <i className="ion-heart"></i> {article.favoritesCount}
