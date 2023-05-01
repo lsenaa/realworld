@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useArticlesQuery } from "../../hooks/queries/useQueryArticles";
 import { useFavoriteQuery } from "../../hooks/queries/useQueryFavorites";
+import { useProfileQuery } from "../../hooks/queries/useQueryProfile";
 import { useUserQuery } from "../../hooks/queries/useQueryUser";
 
 interface IButtonProps {
@@ -8,6 +9,7 @@ interface IButtonProps {
     author: {
       username: string;
       image: string;
+      following?: boolean;
     };
     body: string;
     createdAt: string;
@@ -26,8 +28,10 @@ const Buttons = (article: IButtonProps) => {
   const { userData } = useUserQuery();
   const { postFavoriteMutation, deleteFavoriteMutation } = useFavoriteQuery();
   const { deleteArticleMutation } = useArticlesQuery();
+  // const { profileData } = useProfileQuery(article?.article?.author.username);
 
   const userName = String(userData?.data.user.username);
+  const following = article?.article?.author.following;
 
   const onToggleFavorite = () => {
     if (article.article.favorited) {
@@ -65,10 +69,16 @@ const Buttons = (article: IButtonProps) => {
         </>
       ) : (
         <>
-          <button className="btn btn-sm btn-outline-secondary">
+          <button
+            className={`btn btn-sm ${
+              following
+                ? `action-btn ng-binding btn-secondary`
+                : `btn-outline-secondary`
+            }`}
+          >
             <i className="ion-plus-round"></i>
-            &nbsp; Follow {article?.article?.author.username}{" "}
-            <span className="counter">(10)</span>
+            &nbsp; {following ? "UnFollow" : "Follow"}{" "}
+            {article?.article?.author.username}{" "}
           </button>
           &nbsp;&nbsp;
           <button
