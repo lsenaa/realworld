@@ -21,11 +21,12 @@ const Header = () => {
             <>
               <li className="nav-item">
                 <Link to="/editor" className="nav-link">
-                  New Article
+                  <i className="ion-compose">&nbsp;</i> New Article
                 </Link>
               </li>
               <li className="nav-item">
                 <Link to="/settings" className="nav-link">
+                  <i className="ion-gear-a">&nbsp;</i>
                   Settings
                 </Link>
               </li>
