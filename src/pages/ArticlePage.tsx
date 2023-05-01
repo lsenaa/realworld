@@ -45,7 +45,7 @@ const ArticlePage = () => {
               </Link>
               <span className="date">
                 {convertDate(
-                  article?.updatedAt ? article.updatedAt : article.createdAt
+                  article?.updatedAt ? article?.updatedAt : article?.createdAt
                 )}
               </span>
             </div>
