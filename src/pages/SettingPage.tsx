@@ -1,4 +1,34 @@
+import { useState } from "react";
+import { useUserQuery } from "../hooks/queries/useQueryUser";
+
+interface IFormProfileData {
+  image: string;
+  username: string;
+  bio: string;
+  email: string;
+  password: string;
+}
+
 const SettingPage = () => {
+  const { userData } = useUserQuery();
+
+  const [values, setValues] = useState<IFormProfileData>({
+    image: userData?.data.user.image,
+    username: userData?.data.user.username,
+    bio: userData?.data.user.bio,
+    email: userData?.data.user.email,
+    password: "",
+  });
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setValues({
+      ...values,
+      [e.target.name]: e.target.value,
+    });
+  };
+
   return (
     <div className="settings-page">
       <div className="container page">
@@ -12,44 +42,58 @@ const SettingPage = () => {
                   <input
                     className="form-control"
                     type="text"
-                    placeholder="URL of profile picture"
+                    name="image"
+                    value={values.image}
+                    onChange={handleChange}
                   />
                 </fieldset>
                 <fieldset className="form-group">
                   <input
                     className="form-control form-control-lg"
                     type="text"
-                    placeholder="Your Name"
+                    name="username"
+                    value={values.username}
+                    onChange={handleChange}
                   />
                 </fieldset>
                 <fieldset className="form-group">
                   <textarea
                     className="form-control form-control-lg"
                     rows={8}
-                    placeholder="Short bio about you"
+                    name="bio"
+                    value={values.bio}
+                    onChange={handleChange}
                   ></textarea>
                 </fieldset>
                 <fieldset className="form-group">
                   <input
                     className="form-control form-control-lg"
                     type="text"
-                    placeholder="Email"
+                    name="email"
+                    value={values.email}
+                    onChange={handleChange}
                   />
                 </fieldset>
                 <fieldset className="form-group">
                   <input
                     className="form-control form-control-lg"
                     type="password"
-                    placeholder="Password"
+                    placeholder="New Password"
+                    name="username"
+                    value={values.password}
+                    onChange={handleChange}
                   />
                 </fieldset>
-                <button className="btn btn-lg btn-primary pull-xs-right">
+                <button
+                  type="submit"
+                  className="btn btn-lg btn-primary pull-xs-right"
+                >
                   Update Settings
                 </button>
               </fieldset>
             </form>
             <hr />
-            <button className="btn btn-outline-danger">
+            <button type="button" className="btn btn-outline-danger">
               Or click here to logout.
             </button>
           </div>
