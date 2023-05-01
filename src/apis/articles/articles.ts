@@ -1,9 +1,9 @@
 import { apiClient } from "../client";
 import { IPostArticle, IPutArticle } from "./articlesType";
 
-export const getArticles = async () => {
+export const getArticles = async (isGlobal: boolean) => {
   try {
-    const data = await apiClient.get(`/articles`);
+    const data = await apiClient.get(`/articles${isGlobal ? "" : "/feed"}`);
     return data;
   } catch (e) {
     console.error(e);
@@ -25,15 +25,6 @@ export const getFavoitedArticles = async (favorited: string) => {
     return data;
   } catch (e) {
     console.log(e);
-  }
-};
-
-export const getFeed = async () => {
-  try {
-    const data = await apiClient.get(`/articles/feed`);
-    return data;
-  } catch (e) {
-    console.error(e);
   }
 };
 

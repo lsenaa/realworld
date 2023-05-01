@@ -4,7 +4,6 @@ import {
   getArticles,
   getArticlesSlug,
   getFavoitedArticles,
-  getFeed,
   getMyArticles,
   postArticle,
   putArticle,
@@ -12,15 +11,6 @@ import {
 
 export const useArticlesQuery = () => {
   const queryClient = useQueryClient();
-
-  const { data: globalData, isLoading: globalIsLoading } = useQuery(
-    ["articles"],
-    () => getArticles()
-  );
-
-  const { data: feedData, isLoading: feedIsLoading } = useQuery(["feed"], () =>
-    getFeed()
-  );
 
   const { mutate: postArticleMutation } = useMutation(postArticle, {
     onSuccess: () => {
@@ -41,14 +31,23 @@ export const useArticlesQuery = () => {
   });
 
   return {
-    globalData,
-    feedData,
-    globalIsLoading,
-    feedIsLoading,
     postArticleMutation,
     putArticleMutation,
     deleteArticleMutation,
   };
+};
+
+export const useGetArticlesQuery = (isGlobal: boolean) => {
+  const { data: globalData, isLoading: globalIsLoading } = useQuery(
+    ["articles"],
+    () => getArticles(isGlobal)
+  );
+
+  const { data: feedData, isLoading: feedIsLoading } = useQuery(["feed"], () =>
+    getArticles(isGlobal)
+  );
+
+  return { globalData, feedData, globalIsLoading, feedIsLoading };
 };
 
 export const useArticleQuery = (slug: string) => {

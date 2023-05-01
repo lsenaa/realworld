@@ -1,4 +1,7 @@
-import { useArticlesQuery } from "../hooks/queries/useQueryArticles";
+import {
+  useArticlesQuery,
+  useGetArticlesQuery,
+} from "../hooks/queries/useQueryArticles";
 import { Link } from "react-router-dom";
 import ArticlePreview from "../components/article/ArticlePreview";
 import { useTagQuery } from "../hooks/queries/useQueryTags";
@@ -7,10 +10,10 @@ import { UserContext } from "../contexts/UserContext";
 
 const HomePage = () => {
   const { isLogin } = useContext(UserContext);
-  const { globalData, feedData, globalIsLoading, feedIsLoading } =
-    useArticlesQuery();
-  const { tagData, tagIsLoading } = useTagQuery();
   const [isGlobal, setIsGlobal] = useState(true);
+  const { globalData, feedData, globalIsLoading, feedIsLoading } =
+    useGetArticlesQuery(isGlobal);
+  const { tagData, tagIsLoading } = useTagQuery();
 
   return (
     <div className="home-page">
