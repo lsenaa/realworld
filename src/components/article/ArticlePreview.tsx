@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 export interface IArticle {
@@ -26,6 +25,10 @@ const ArticlePreview = ({ data, loading }: IArticlePreviewProps) => {
   return (
     <>
       {loading && <p style={{ marginTop: "10px" }}>Loading...</p>}
+
+      {data?.length === 0 && (
+        <p style={{ marginTop: "10px" }}>No articles are here... yet.</p>
+      )}
 
       {data?.map((article: IArticle) => (
         <div className="article-preview" key={article.slug}>
