@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import ArticlePreview from "../components/article/ArticlePreview";
 import {
   useFavoriteArticleQuery,
@@ -8,6 +8,7 @@ import {
 import { useUserQuery } from "../hooks/queries/useQueryUser";
 
 const ProfilePage = () => {
+  const navigate = useNavigate();
   const params = useParams();
   const { userData } = useUserQuery();
   const username = String(params.username);
@@ -28,9 +29,21 @@ const ProfilePage = () => {
               />
               <h4>{userData?.data.user.username}</h4>
               <p>{userData?.data.user.bio}</p>
-              <button className="btn btn-sm btn-outline-secondary action-btn">
-                <i className="ion-plus-round"></i>
-                &nbsp; Follow {userData?.data.user.username}
+              <button
+                className="btn btn-sm btn-outline-secondary action-btn"
+                onClick={async () => navigate(`/settings`)}
+              >
+                <i
+                  className={
+                    username === userData?.data.user.username
+                      ? "ion-gear-a"
+                      : "ion-plus-round"
+                  }
+                ></i>
+                &nbsp;
+                {username === userData?.data.user.username
+                  ? " Edit Profile Settings"
+                  : `Follow ${userData?.data.user.username}`}
               </button>
             </div>
           </div>
