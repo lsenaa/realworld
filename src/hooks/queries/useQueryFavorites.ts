@@ -6,13 +6,13 @@ export const useFavoriteQuery = () => {
 
   const { mutate: postFavoriteMutation } = useMutation(postFavorites, {
     onSuccess: () => {
-      queryClient.invalidateQueries(["favorite"]);
+      queryClient.invalidateQueries(["articles"]);
     },
   });
 
   const { mutate: deleteFavoriteMutation } = useMutation(deleteFavorites, {
     onSuccess: () => {
-      queryClient.invalidateQueries(["favorite"]);
+      queryClient.invalidateQueries(["articles"]);
     },
   });
 
