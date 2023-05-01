@@ -3,6 +3,7 @@ import {
   DeleteArticle,
   getArticles,
   getArticlesSlug,
+  getFavoitedArticles,
   getFeed,
   getMyArticles,
   postArticle,
@@ -69,4 +70,13 @@ export const useMyArticleQuery = (author: string) => {
   );
 
   return { myArticleData, myArticleIsLoading };
+};
+
+export const useFavoriteArticleQuery = (username: string) => {
+  const { data: favoriteData, isLoading: favoriteIsLoading } = useQuery(
+    ["articles", "author"],
+    () => getFavoitedArticles(username)
+  );
+
+  return { favoriteData, favoriteIsLoading };
 };

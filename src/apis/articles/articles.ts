@@ -19,6 +19,15 @@ export const getMyArticles = async (author: string) => {
   }
 };
 
+export const getFavoitedArticles = async (username: string) => {
+  try {
+    const data = await apiClient.get(`/articles${`?username=${username}&`}`);
+    return data;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 export const getFeed = async () => {
   try {
     const data = await apiClient.get(`/articles/feed`);
