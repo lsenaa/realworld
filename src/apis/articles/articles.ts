@@ -47,7 +47,6 @@ export const postArticle = async ({
     const { data } = await apiClient.post(`/articles`, {
       article: { title, description, body, tagList },
     });
-    console.log(data);
     return data;
   } catch (e) {
     console.error(e);
@@ -62,7 +61,7 @@ export const putArticle = async ({
   tagList,
 }: IPutArticle) => {
   try {
-    const { data } = await apiClient.post(`/articles/${slug}`, {
+    const { data } = await apiClient.put(`/articles/${slug}`, {
       article: { title, description, body, tagList },
     });
     return data;

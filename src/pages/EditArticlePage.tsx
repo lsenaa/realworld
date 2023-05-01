@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { IPutArticle } from "../apis/articles/articlesType";
 import {
   useArticleQuery,
   useArticlesQuery,
@@ -9,18 +10,19 @@ import { IFormArticleData } from "./NewArticlePage";
 const EditArticlePage = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(location.state.article);
+  // console.log(location.state.article);
   const params = useParams();
-  const slug = String(params.slug);
-  const { articleData } = useArticleQuery(slug);
+  const slug = String(location.state.article.slug);
+  // const slug = String(params.slug);
+  // const { articleData } = useArticleQuery(slug);
   // console.log(articleData?.data.article);
   const { putArticleMutation } = useArticlesQuery();
 
   const [values, setValues] = useState<IFormArticleData>({
-    title: articleData?.data.article.title,
-    description: articleData?.data.article.description,
-    body: articleData?.data.article.body,
-    tagList: articleData?.data.article.tagList,
+    title: location.state.article.title,
+    description: location.state.article.description,
+    body: location.state.article.body,
+    tagList: [],
   });
 
   const handleChange = (
@@ -36,7 +38,7 @@ const EditArticlePage = () => {
 
   const onSubmitEditArticle = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // putArticleMutation(values);
+    putArticleMutation({ ...values, slug });
     navigate(`/article/${slug}`);
   };
 
@@ -52,7 +54,6 @@ const EditArticlePage = () => {
                     type="text"
                     className="form-control form-control-lg"
                     name="title"
-                    // defaultValue={articleData?.data.article.title}
                     value={values.title}
                     onChange={handleChange}
                   />
@@ -63,7 +64,6 @@ const EditArticlePage = () => {
                     className="form-control"
                     name="description"
                     value={values.description}
-                    // defaultValue={articleData?.data.article.description}
                     onChange={handleChange}
                   />
                 </fieldset>
@@ -73,7 +73,6 @@ const EditArticlePage = () => {
                     rows={8}
                     name="body"
                     value={values.body}
-                    // defaultValue={articleData?.data.article.body}
                     onChange={handleChange}
                   ></textarea>
                 </fieldset>
@@ -87,7 +86,7 @@ const EditArticlePage = () => {
                     onChange={handleChange}
                   />
                   <div className="tag-list">
-                    {articleData?.data.article.tagList.map(
+                    {location.state.article.tagList.map(
                       (tag: string, index: number) => (
                         <span
                           key={index}
@@ -102,7 +101,7 @@ const EditArticlePage = () => {
                 </fieldset>
                 <button
                   className="btn btn-lg pull-xs-right btn-primary"
-                  type="button"
+                  type="submit"
                 >
                   Publish Article
                 </button>
