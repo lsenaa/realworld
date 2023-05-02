@@ -91,20 +91,28 @@ const ArticlePage = () => {
             {isLogin ? <Buttons article={article} /> : <></>}
           </div>
         </div>
-        {isLogin && (
-          <div className="row">
-            <div className="col-xs-12 col-md-8 offset-md-2">
-              <CommentWrite slug={String(params.slug)} />
-              {comments?.map((comment: IComment) => (
-                <CommentList
-                  comment={comment}
-                  slug={String(params.slug)}
-                  key={comment.id}
-                />
-              ))}
-            </div>
+        <div className="row">
+          <div className="col-xs-12 col-md-8 offset-md-2">
+            {isLogin ? (
+              <>
+                <CommentWrite slug={String(params.slug)} />
+                {comments?.map((comment: IComment) => (
+                  <CommentList
+                    comment={comment}
+                    slug={String(params.slug)}
+                    key={comment.id}
+                  />
+                ))}
+              </>
+            ) : (
+              <p style={{ textAlign: "center" }}>
+                <Link to="/login">Sign in</Link> or{" "}
+                <Link to="/register">sign up</Link> to add comments on this
+                article.
+              </p>
+            )}
           </div>
-        )}
+        </div>
       </div>
     </div>
   );
