@@ -5,6 +5,7 @@ import CommentList from "../components/comments/CommentList";
 import CommentWrite from "../components/comments/CommentWrite";
 import { useArticleQuery } from "../hooks/queries/useQueryArticles";
 import { useCommentQuery } from "../hooks/queries/useQueryComments";
+import { useIsLogin } from "../hooks/useIsLogin";
 import { convertDate } from "../libs/date";
 
 export interface IComment {
@@ -21,6 +22,7 @@ export interface IComment {
 }
 const ArticlePage = () => {
   const params = useParams();
+  const { isLogin } = useIsLogin();
   const { articleData } = useArticleQuery(String(params.slug));
   const article: IArticle = articleData?.data.article;
   const { commentData } = useCommentQuery(String(params.slug));
@@ -89,19 +91,20 @@ const ArticlePage = () => {
             <Buttons article={article} />
           </div>
         </div>
-
-        <div className="row">
-          <div className="col-xs-12 col-md-8 offset-md-2">
-            <CommentWrite slug={String(params.slug)} />
-            {comments?.map((comment: IComment) => (
-              <CommentList
-                comment={comment}
-                slug={String(params.slug)}
-                key={comment.id}
-              />
-            ))}
+        {isLogin && (
+          <div className="row">
+            <div className="col-xs-12 col-md-8 offset-md-2">
+              <CommentWrite slug={String(params.slug)} />
+              {comments?.map((comment: IComment) => (
+                <CommentList
+                  comment={comment}
+                  slug={String(params.slug)}
+                  key={comment.id}
+                />
+              ))}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

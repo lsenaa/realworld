@@ -3,6 +3,7 @@ import { useArticlesQuery } from "../../hooks/queries/useQueryArticles";
 import { useFavoriteQuery } from "../../hooks/queries/useQueryFavorites";
 import { useProfileQuery } from "../../hooks/queries/useQueryProfile";
 import { useUserQuery } from "../../hooks/queries/useQueryUser";
+import { useIsLogin } from "../../hooks/useIsLogin";
 
 interface IButtonProps {
   article: {
@@ -25,14 +26,15 @@ interface IButtonProps {
 
 const Buttons = (article: IButtonProps) => {
   const navigate = useNavigate();
-  const { userData } = useUserQuery();
+  const { isLogin } = useIsLogin();
+  // const { userData } = useUserQuery();
   const { postFavoriteMutation, deleteFavoriteMutation } = useFavoriteQuery();
   const { deleteArticleMutation } = useArticlesQuery();
   const { postFollowMutation, deleteFollowMutation } = useProfileQuery(
     article?.article?.author.username
   );
 
-  const userName = String(userData?.data.user.username);
+  // const userName = String(userData?.data.user.username);
   const following = article?.article?.author.following;
 
   const onToggleFavorite = () => {
@@ -58,7 +60,7 @@ const Buttons = (article: IButtonProps) => {
 
   return (
     <>
-      {userName === article?.article?.author.username ? (
+      {isLogin ? (
         <>
           <Link
             to={`/editor/${article.article.slug}`}
