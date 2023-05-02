@@ -37,8 +37,7 @@ const SignUpPage = () => {
     postRegister(values)
       .then((res) => {
         localStorage.setToken("accessToken", res.data.user.token);
-        // setIsLogin(localStorage.getToken("accessToken"));
-        setIsLogin(true);
+        setIsLogin(localStorage.getToken("accessToken"));
         navigate("/", { replace: true });
       })
       .catch((err) => {
