@@ -3,7 +3,6 @@ import { apiClient } from "./client";
 export const getProfile = async (username: string) => {
   try {
     const data = await apiClient.get(`/profiles/${username}`);
-    console.log(data);
     return data;
   } catch (e) {
     console.error(e);
