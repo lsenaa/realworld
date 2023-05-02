@@ -35,8 +35,6 @@ const SettingPage = () => {
     });
   }, [userData]);
 
-  console.log(userData);
-
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {

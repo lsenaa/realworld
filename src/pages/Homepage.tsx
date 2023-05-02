@@ -1,7 +1,4 @@
-import {
-  useArticlesQuery,
-  useGetArticlesQuery,
-} from "../hooks/queries/useQueryArticles";
+import { useGetArticlesQuery } from "../hooks/queries/useQueryArticles";
 import { Link } from "react-router-dom";
 import ArticlePreview from "../components/article/ArticlePreview";
 import { useTagQuery } from "../hooks/queries/useQueryTags";
