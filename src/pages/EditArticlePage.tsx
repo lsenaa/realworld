@@ -23,7 +23,7 @@ const EditArticlePage = () => {
     description: location.state.article.description,
     body: location.state.article.body,
     tag: "",
-    tagList: [],
+    tagList: location.state.article.tagList,
   });
 
   const handleChange = (
@@ -35,6 +35,30 @@ const EditArticlePage = () => {
       ...values,
       [e.target.name]: e.target.value,
     });
+  };
+
+  const addTag = (newTag: string) => {
+    setValues({
+      ...values,
+      tag: "",
+      tagList: [...values.tagList, newTag],
+    });
+  };
+
+  const removeTag = (target: string) => {
+    setValues({
+      ...values,
+      tagList: values.tagList.filter((tag: string) => tag !== target),
+    });
+  };
+
+  const onEnter = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      if (!values.tagList.includes(values.tag)) {
+        addTag(values.tag);
+      }
+    }
   };
 
   const onSubmitEditArticle = (event: React.FormEvent<HTMLFormElement>) => {
@@ -82,22 +106,26 @@ const EditArticlePage = () => {
                     type="text"
                     className="form-control"
                     placeholder="Enter tags"
-                    name="tagList"
-                    value={values.tagList}
+                    name="tag"
+                    value={values.tag}
                     onChange={handleChange}
+                    onKeyDown={onEnter}
                   />
                   <div className="tag-list">
-                    {location.state.article.tagList.map(
-                      (tag: string, index: number) => (
-                        <span
-                          key={index}
-                          className="tag-default tag-pill ng-binding ng-scope"
-                        >
-                          <i className="ion-close-round"></i>
-                          {tag}
-                        </span>
-                      )
-                    )}
+                    {values.tagList.map((tag: string) => (
+                      <span
+                        key={tag}
+                        className="tag-default tag-pill ng-binding ng-scope"
+                      >
+                        <i
+                          role="presentation"
+                          className="ion-close-round"
+                          style={{ cursor: "pointer", marginRight: "5px" }}
+                          onClick={() => removeTag(tag)}
+                        ></i>
+                        {tag}
+                      </span>
+                    ))}
                   </div>
                 </fieldset>
                 <button
