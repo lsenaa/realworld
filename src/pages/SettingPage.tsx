@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { putUser } from "../apis/users/users";
 import { UserContext } from "../contexts/UserContext";
@@ -18,20 +18,24 @@ const SettingPage = () => {
   const { userData, putUserMutation } = useUserQuery();
 
   const [values, setValues] = useState<IFormProfileData>({
-    image: userData?.data.user.image,
-    username: userData?.data.user.username,
-    bio: userData?.data.user.bio,
-    email: userData?.data.user.email,
-    password: "",
-  });
-
-  const [error, setError] = useState({
     image: "",
     username: "",
     bio: "",
     email: "",
     password: "",
   });
+
+  useEffect(() => {
+    setValues({
+      image: userData?.data.user.image,
+      username: userData?.data.user.username,
+      bio: userData?.data.user.bio,
+      email: userData?.data.user.email,
+      password: "",
+    });
+  }, [userData]);
+
+  console.log(userData);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -41,26 +45,16 @@ const SettingPage = () => {
       [e.target.name]: e.target.value,
     });
   };
-  // console.log(values);
 
   const onSubmitSetting = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    putUserMutation(values);
-    navigate(`/profile/${userData?.data.user.username}`);
+    // putUserMutation(values)
+    // navigate(`/profile/${userData?.data.user.username}`);
 
-    // putUser(values)
-    // .then((res) => {
-    //     navigate("/");
-    //   })
-    //   .catch((err) => {
-    //     setError({
-    //       image: err.response.data.errors.image,
-    //       username: err.response.data.errors.username,
-    //       bio: err.response.data.errors.bio,
-    //       email: err.response.data.errors.email,
-    //       password: err.response.data.errors.password,
-    //     });
-    //   });
+    putUser(values).then((res) => {
+      console.log(res);
+      navigate("/");
+    });
   };
 
   const { setIsLogin } = useContext(UserContext);
@@ -77,14 +71,6 @@ const SettingPage = () => {
         <div className="row">
           <div className="col-md-6 offset-md-3 col-xs-12">
             <h1 className="text-xs-center">Your Settings</h1>
-
-            <ul className="error-messages">
-              {error.image && <li>image {error.image}</li>}
-              {error.email && <li>email {error.email}</li>}
-              {error.bio && <li>bio {error.bio}</li>}
-              {error.username && <li>username {error.username}</li>}
-              {error.password && <li>password {error.password}</li>}
-            </ul>
 
             <form onSubmit={onSubmitSetting}>
               <fieldset>
@@ -128,8 +114,8 @@ const SettingPage = () => {
                   <input
                     className="form-control form-control-lg"
                     type="password"
-                    placeholder="New Password"
-                    name="username"
+                    // placeholder="New Password"
+                    name="password"
                     value={values.password}
                     onChange={handleChange}
                   />
