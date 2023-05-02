@@ -6,6 +6,7 @@ export interface IFormArticleData {
   title: string;
   description: string;
   body: string;
+  tag: string;
   tagList: string[];
 }
 
@@ -16,6 +17,7 @@ const NewArticlePage = () => {
     title: "",
     description: "",
     body: "",
+    tag: "",
     tagList: [],
   });
 
@@ -34,6 +36,30 @@ const NewArticlePage = () => {
       ...values,
       [e.target.name]: e.target.value,
     });
+  };
+
+  const addTag = (newTag: string) => {
+    setValues({
+      ...values,
+      tag: "",
+      tagList: [...values.tagList, newTag],
+    });
+  };
+
+  const removeTag = (target: string) => {
+    setValues({
+      ...values,
+      tagList: values.tagList.filter((tag: string) => tag !== target),
+    });
+  };
+
+  const onEnter = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      if (!values.tagList.includes(values.tag)) {
+        addTag(values.tag);
+      }
+    }
   };
 
   const onSubmitArticle = (event: React.FormEvent<HTMLFormElement>) => {
@@ -99,11 +125,24 @@ const NewArticlePage = () => {
                     type="text"
                     className="form-control"
                     placeholder="Enter tags"
-                    name="tagList"
-                    value={values.tagList}
+                    name="tag"
+                    value={values.tag}
                     onChange={handleChange}
+                    onKeyDown={onEnter}
                   />
-                  <div className="tag-list"></div>
+                  <div className="tag-list">
+                    {values.tagList.map((tag: string) => (
+                      <span className="tag-default tag-pill" key={tag}>
+                        <i
+                          role="presentation"
+                          className="ion-close-round"
+                          style={{ cursor: "pointer", marginRight: "5px" }}
+                          onClick={() => removeTag(tag)}
+                        />{" "}
+                        {tag}{" "}
+                      </span>
+                    ))}
+                  </div>
                 </fieldset>
                 <button
                   className="btn btn-lg pull-xs-right btn-primary"

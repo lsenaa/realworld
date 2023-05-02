@@ -22,6 +22,7 @@ const EditArticlePage = () => {
     title: location.state.article.title,
     description: location.state.article.description,
     body: location.state.article.body,
+    tag: "",
     tagList: [],
   });
 
