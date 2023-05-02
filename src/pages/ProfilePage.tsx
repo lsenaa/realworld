@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import ArticlePreview from "../components/article/ArticlePreview";
 import ProfileButton from "../components/profile/ProfileButton";
 import {
@@ -9,7 +9,6 @@ import {
 import { useProfileQuery } from "../hooks/queries/useQueryProfile";
 
 const ProfilePage = () => {
-  const navigate = useNavigate();
   const params = useParams();
   const username = String(params.username);
   const { profileData } = useProfileQuery(username);
