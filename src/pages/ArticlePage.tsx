@@ -1,6 +1,8 @@
 import { Link, useParams } from "react-router-dom";
 import { IArticle } from "../components/article/ArticlePreview";
 import Buttons from "../components/article/Buttons";
+import ButtonNoAccess from "../components/article/ButtonsNoAccess";
+import ButtonWithAccess from "../components/article/ButtonWithAccess";
 import CommentList from "../components/comments/CommentList";
 import CommentWrite from "../components/comments/CommentWrite";
 import { useArticleQuery } from "../hooks/queries/useQueryArticles";
@@ -51,7 +53,7 @@ const ArticlePage = () => {
                 )}
               </span>
             </div>
-            <Buttons article={article} />
+            {isLogin ? <Buttons article={article} /> : <></>}
           </div>
         </div>
       </div>
@@ -88,7 +90,7 @@ const ArticlePage = () => {
                 )}
               </span>
             </div>
-            <Buttons article={article} />
+            {isLogin ? <Buttons article={article} /> : <></>}
           </div>
         </div>
         {isLogin && (

@@ -5,6 +5,7 @@ export interface IArticle {
   author: {
     username: string;
     image: string;
+    following: boolean;
   };
   body: string;
   createdAt: string;
