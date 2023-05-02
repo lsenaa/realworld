@@ -67,9 +67,9 @@ const SettingPage = () => {
 
   const onClickLogout = () => {
     localStorage.removeItem("accessToken");
-    setIsLogin("");
+    // setIsLogin("");
+    setIsLogin(false);
     navigate("/", { replace: true });
-    console.log("로그아웃 확인");
   };
 
   return (

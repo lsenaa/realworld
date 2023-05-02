@@ -36,7 +36,8 @@ const SignInPage = () => {
     postLogin(values)
       .then((res) => {
         setToken("accessToken", res.user.token);
-        setIsLogin(getToken("accessToken"));
+        // setIsLogin(getToken("accessToken"));
+        setIsLogin(false);
         navigate("/", { replace: true });
       })
       .catch((err) => {

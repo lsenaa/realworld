@@ -1,30 +1,22 @@
 import { useNavigate } from "react-router-dom";
-import { useUserQuery } from "../../hooks/queries/useQueryUser";
+import { useIsLogin } from "../../hooks/useIsLogin";
 
 interface IProfileButtonProps {
   username: string;
 }
 
-const ProfileButton = (username: IProfileButtonProps) => {
+const ProfileButton = ({ username }: IProfileButtonProps) => {
   const navigate = useNavigate();
-  const { userData } = useUserQuery();
+  const { isLogin } = useIsLogin();
 
   return (
     <button
       className="btn btn-sm btn-outline-secondary action-btn"
-      onClick={async () => navigate(`/settings`)}
+      onClick={async () => navigate(isLogin ? `/settings` : `/register`)}
     >
-      {/* <i
-        className={
-          username === userData?.data.user.username
-            ? "ion-gear-a"
-            : "ion-plus-round"
-        }
-      ></i>
+      <i className={isLogin ? "ion-gear-a" : "ion-plus-round"}></i>
       &nbsp;
-      {username === userData?.data.user.username
-        ? " Edit Profile Settings"
-        : `Follow ${userData?.data.user.username}`} */}
+      {isLogin ? " Edit Profile Settings" : `Follow ${username}`}
     </button>
   );
 };
