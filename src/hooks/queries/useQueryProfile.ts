@@ -5,7 +5,7 @@ export const useProfileQuery = (username: string) => {
   const queryClient = useQueryClient();
 
   const { data: profileData, isLoading: profileIsLoading } = useQuery(
-    ["user"],
+    ["profile"],
     () => getProfile(username)
   );
 
