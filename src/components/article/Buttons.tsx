@@ -63,8 +63,8 @@ const Buttons = (article: IButtonProps) => {
       {isLogin ? (
         <>
           <Link
-            to={`/editor/${article.article.slug}`}
-            state={{ article: article.article }}
+            to={`/editor/${article?.article?.slug}`}
+            state={{ article: article?.article }}
           >
             <button className="btn btn-sm btn-outline-secondary">
               <i className="ion-edit"></i>
