@@ -37,9 +37,9 @@ export const useArticlesQuery = () => {
   };
 };
 
-export const useGetArticlesQuery = (isGlobal: boolean) => {
-  const { data, isLoading } = useQuery(["articles", isGlobal], () =>
-    getArticles(isGlobal)
+export const useGetArticlesQuery = (tab: number, selectTag: string) => {
+  const { data, isLoading } = useQuery(["articles", tab, selectTag], () =>
+    getArticles(tab, selectTag)
   );
 
   return {

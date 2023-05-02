@@ -5,10 +5,12 @@ import { IPostArticle, IPutArticle } from "./articlesType";
 // ${favorited ? `&favorited=${favorited}` : ""}
 // ${author ? `&author=${author}` : ""}`)
 
-export const getArticles = async (isGlobal: boolean) => {
+export const getArticles = async (tab: number, selectTag: string) => {
   try {
-    const data = await apiClient.get(`/articles${isGlobal ? "" : "/feed"}
-    `);
+    const data = await apiClient.get(
+      `/articles${tab === 1 ? "" : ""}${tab === 0 ? "/feed" : ""}?limit=20
+      ${tab === 2 ? `&tag=${selectTag}` : ""}`
+    );
     return data;
   } catch (e) {
     console.error(e);

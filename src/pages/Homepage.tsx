@@ -8,12 +8,18 @@ import { UserContext } from "../contexts/UserContext";
 const HomePage = () => {
   const { isLogin } = useContext(UserContext);
   const [isGlobal, setIsGlobal] = useState(true);
-  const { data, isLoading } = useGetArticlesQuery(isGlobal);
   const [selectTag, setSelectTag] = useState("");
+  const [tab, setTab] = useState(1);
+  const { data, isLoading } = useGetArticlesQuery(tab, selectTag);
   const { tagData, tagIsLoading } = useTagQuery();
+
+  // console.log(data?.data.articlesCount);
+  console.log(data);
 
   const onClickTag = (tag: string) => {
     setSelectTag(tag);
+    setIsGlobal(false);
+    setTab(2);
   };
 
   return (
@@ -34,8 +40,11 @@ const HomePage = () => {
                   <li className="nav-item">
                     <Link
                       to="/"
-                      className={`nav-link ${isGlobal ? "" : "active"}`}
-                      onClick={() => setIsGlobal(false)}
+                      className={`nav-link ${tab === 0 ? "active" : ""}`}
+                      onClick={() => {
+                        setIsGlobal(false);
+                        setTab(0);
+                      }}
                     >
                       Your Feed
                     </Link>
@@ -44,10 +53,23 @@ const HomePage = () => {
                 <li className="nav-item">
                   <Link
                     to="/"
-                    className={`nav-link ${isGlobal ? "active" : ""}`}
-                    onClick={() => setIsGlobal(true)}
+                    className={`nav-link ${tab === 1 ? "active" : ""}`}
+                    onClick={() => {
+                      setIsGlobal(true);
+                      setTab(1);
+                    }}
                   >
                     Global Feed
+                  </Link>
+                </li>
+
+                <li className="nav-item">
+                  <Link
+                    to="/"
+                    className={`nav-link ${tab === 2 ? "active" : ""}`}
+                    onClick={() => setTab(2)}
+                  >
+                    {selectTag}
                   </Link>
                 </li>
               </ul>
