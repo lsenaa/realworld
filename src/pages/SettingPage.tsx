@@ -77,7 +77,7 @@ const SettingPage = () => {
                     className="form-control"
                     type="text"
                     name="image"
-                    value={values.image}
+                    value={values.image || ""}
                     onChange={handleChange}
                   />
                 </fieldset>
@@ -86,7 +86,7 @@ const SettingPage = () => {
                     className="form-control form-control-lg"
                     type="text"
                     name="username"
-                    value={values.username}
+                    value={values.username || ""}
                     onChange={handleChange}
                   />
                 </fieldset>
@@ -95,7 +95,7 @@ const SettingPage = () => {
                     className="form-control form-control-lg"
                     rows={8}
                     name="bio"
-                    value={values.bio}
+                    value={values.bio || ""}
                     onChange={handleChange}
                   ></textarea>
                 </fieldset>
@@ -104,7 +104,7 @@ const SettingPage = () => {
                     className="form-control form-control-lg"
                     type="text"
                     name="email"
-                    value={values.email}
+                    value={values.email || ""}
                     onChange={handleChange}
                   />
                 </fieldset>
@@ -114,7 +114,7 @@ const SettingPage = () => {
                     type="password"
                     // placeholder="New Password"
                     name="password"
-                    value={values.password}
+                    value={values.password || ""}
                     onChange={handleChange}
                   />
                 </fieldset>
