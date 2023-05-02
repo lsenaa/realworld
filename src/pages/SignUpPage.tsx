@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { postRegister } from "../apis/users/users";
 import { useIsLogin } from "../hooks/useIsLogin";
+import { getToken, setToken } from "../libs/token";
 
 interface IFormRegisterData {
   email: string;
@@ -36,15 +37,16 @@ const SignUpPage = () => {
     event.preventDefault();
     postRegister(values)
       .then((res) => {
-        localStorage.setToken("accessToken", res.data.user.token);
-        setIsLogin(localStorage.getToken("accessToken"));
+        setToken("accessToken", res.user.token);
+        setIsLogin(getToken("accessToken"));
         navigate("/", { replace: true });
       })
       .catch((err) => {
+        console.log(err);
         setError({
-          email: err.response.data.errors.email,
-          username: err.response.data.errors.username,
-          password: err.response.data.errors.password,
+          email: err.response?.data.errors.email,
+          username: err.response?.data.errors.username,
+          password: err.response?.data.errors.password,
         });
       });
   };
