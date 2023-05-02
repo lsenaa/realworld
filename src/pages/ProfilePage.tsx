@@ -5,13 +5,13 @@ import {
   useFavoriteArticleQuery,
   useMyArticleQuery,
 } from "../hooks/queries/useQueryArticles";
-import { useUserQuery } from "../hooks/queries/useQueryUser";
+import { useProfileQuery } from "../hooks/queries/useQueryProfile";
 
 const ProfilePage = () => {
   const navigate = useNavigate();
   const params = useParams();
-  const { userData } = useUserQuery();
   const username = String(params.username);
+  const { profileData } = useProfileQuery(username);
   const { myArticleData, myArticleIsLoading } = useMyArticleQuery(username);
   const { favoriteData, favoriteIsLoading } = useFavoriteArticleQuery(username);
   const [isFavorite, setisFavorite] = useState(false);
@@ -23,27 +23,27 @@ const ProfilePage = () => {
           <div className="row">
             <div className="col-xs-12 col-md-10 offset-md-1">
               <img
-                src={userData?.data.user.image}
+                src={profileData?.data.profile.image}
                 className="user-img"
                 alt="profile"
               />
-              <h4>{userData?.data.user.username}</h4>
-              <p>{userData?.data.user.bio}</p>
+              <h4>{profileData?.data.profile.username}</h4>
+              <p>{profileData?.data.profile.bio}</p>
               <button
                 className="btn btn-sm btn-outline-secondary action-btn"
                 onClick={async () => navigate(`/settings`)}
               >
                 <i
                   className={
-                    username === userData?.data.user.username
+                    username === profileData?.data.profile.username
                       ? "ion-gear-a"
                       : "ion-plus-round"
                   }
                 ></i>
                 &nbsp;
-                {username === userData?.data.user.username
+                {username === profileData?.data.profile.username
                   ? " Edit Profile Settings"
-                  : `Follow ${userData?.data.user.username}`}
+                  : `Follow ${profileData?.data.profile.username}`}
               </button>
             </div>
           </div>
@@ -57,7 +57,7 @@ const ProfilePage = () => {
               <ul className="nav nav-pills outline-active">
                 <li className="nav-item">
                   <Link
-                    to={`/profile/${userData?.data.user.username}`}
+                    to={`/profile/${profileData?.data.profile.username}`}
                     className={`nav-link ${isFavorite ? "" : "active"}`}
                     onClick={() => setisFavorite(false)}
                   >
@@ -66,7 +66,7 @@ const ProfilePage = () => {
                 </li>
                 <li className="nav-item">
                   <Link
-                    to={`/profile/${userData?.data.user.username}`}
+                    to={`/profile/${profileData?.data.profile.username}`}
                     className={`nav-link ${isFavorite ? "active" : ""}`}
                     onClick={() => setisFavorite(true)}
                   >
