@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import ArticlePreview from "../components/article/ArticlePreview";
+import ProfileButton from "../components/profile/ProfileButton";
 import {
   useFavoriteArticleQuery,
   useMyArticleQuery,
@@ -29,7 +30,7 @@ const ProfilePage = () => {
               />
               <h4>{profileData?.data.profile.username}</h4>
               <p>{profileData?.data.profile.bio}</p>
-              <button
+              {/* <button
                 className="btn btn-sm btn-outline-secondary action-btn"
                 onClick={async () => navigate(`/settings`)}
               >
@@ -44,7 +45,8 @@ const ProfilePage = () => {
                 {username === profileData?.data.profile.username
                   ? " Edit Profile Settings"
                   : `Follow ${profileData?.data.profile.username}`}
-              </button>
+              </button> */}
+              <ProfileButton username={username} />
             </div>
           </div>
         </div>
