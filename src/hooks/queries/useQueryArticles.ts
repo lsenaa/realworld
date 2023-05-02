@@ -3,8 +3,7 @@ import {
   DeleteArticle,
   getArticles,
   getArticlesSlug,
-  getFavoitedArticles,
-  getMyArticles,
+  getProfileArticles,
   postArticle,
   putArticle,
 } from "../../apis/articles/articles";
@@ -60,20 +59,13 @@ export const useArticleQuery = (slug: string) => {
   };
 };
 
-export const useMyArticleQuery = (author: string) => {
-  const { data: myArticleData, isLoading: myArticleIsLoading } = useQuery(
-    ["articles", "author"],
-    () => getMyArticles(author)
+export const useProfileArticlesQuery = (
+  isFavorite: boolean,
+  username: string
+) => {
+  const { data, isLoading } = useQuery(["articles", isFavorite, username], () =>
+    getProfileArticles(isFavorite, username)
   );
 
-  return { myArticleData, myArticleIsLoading };
-};
-
-export const useFavoriteArticleQuery = (favorited: string) => {
-  const { data: favoriteData, isLoading: favoriteIsLoading } = useQuery(
-    ["articles", "favorited"],
-    () => getFavoitedArticles(favorited)
-  );
-
-  return { favoriteData, favoriteIsLoading };
+  return { data, isLoading };
 };

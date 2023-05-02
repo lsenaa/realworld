@@ -2,19 +2,15 @@ import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import ArticlePreview from "../components/article/ArticlePreview";
 import ProfileButton from "../components/profile/ProfileButton";
-import {
-  useFavoriteArticleQuery,
-  useMyArticleQuery,
-} from "../hooks/queries/useQueryArticles";
+import { useProfileArticlesQuery } from "../hooks/queries/useQueryArticles";
 import { useProfileQuery } from "../hooks/queries/useQueryProfile";
 
 const ProfilePage = () => {
   const params = useParams();
   const username = String(params.username);
+  const [isFavorite, setIsFavorite] = useState(true);
   const { profileData } = useProfileQuery(username);
-  const { myArticleData, myArticleIsLoading } = useMyArticleQuery(username);
-  const { favoriteData, favoriteIsLoading } = useFavoriteArticleQuery(username);
-  const [isFavorite, setisFavorite] = useState(false);
+  const { data, isLoading } = useProfileArticlesQuery(isFavorite, username);
 
   return (
     <div className="profile-page">
@@ -44,7 +40,7 @@ const ProfilePage = () => {
                   <Link
                     to={`/profile/${profileData?.data.profile.username}`}
                     className={`nav-link ${isFavorite ? "" : "active"}`}
-                    onClick={() => setisFavorite(false)}
+                    onClick={() => setIsFavorite(false)}
                   >
                     My Articles
                   </Link>
@@ -53,21 +49,14 @@ const ProfilePage = () => {
                   <Link
                     to={`/profile/${profileData?.data.profile.username}`}
                     className={`nav-link ${isFavorite ? "active" : ""}`}
-                    onClick={() => setisFavorite(true)}
+                    onClick={() => setIsFavorite(true)}
                   >
                     Favorited Articles
                   </Link>
                 </li>
               </ul>
             </div>
-            <ArticlePreview
-              data={
-                isFavorite
-                  ? favoriteData?.data.articles
-                  : myArticleData?.data.articles
-              }
-              loading={isFavorite ? favoriteIsLoading : myArticleIsLoading}
-            />
+            <ArticlePreview data={data?.data.articles} loading={isLoading} />
           </div>
         </div>
       </div>

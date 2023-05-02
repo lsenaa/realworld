@@ -17,18 +17,14 @@ export const getArticles = async (tab: number, selectTag: string) => {
   }
 };
 
-export const getMyArticles = async (author: string) => {
+export const getProfileArticles = async (
+  isFavorite: boolean,
+  username: string
+) => {
   try {
-    const data = await apiClient.get(`/articles${`?author=${author}&`}`);
-    return data;
-  } catch (e) {
-    console.error(e);
-  }
-};
-
-export const getFavoitedArticles = async (favorited: string) => {
-  try {
-    const data = await apiClient.get(`/articles${`?favorited=${favorited}&`}`);
+    const data = await apiClient.get(
+      `/articles?${isFavorite ? "favorited" : "author"}=${username}&`
+    );
     return data;
   } catch (e) {
     console.log(e);
