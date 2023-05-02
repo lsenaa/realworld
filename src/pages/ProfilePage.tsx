@@ -30,22 +30,6 @@ const ProfilePage = () => {
               />
               <h4>{profileData?.data.profile.username}</h4>
               <p>{profileData?.data.profile.bio}</p>
-              {/* <button
-                className="btn btn-sm btn-outline-secondary action-btn"
-                onClick={async () => navigate(`/settings`)}
-              >
-                <i
-                  className={
-                    username === profileData?.data.profile.username
-                      ? "ion-gear-a"
-                      : "ion-plus-round"
-                  }
-                ></i>
-                &nbsp;
-                {username === profileData?.data.profile.username
-                  ? " Edit Profile Settings"
-                  : `Follow ${profileData?.data.profile.username}`}
-              </button> */}
               <ProfileButton username={username} />
             </div>
           </div>
