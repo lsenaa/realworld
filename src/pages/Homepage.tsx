@@ -8,9 +8,13 @@ import { UserContext } from "../contexts/UserContext";
 const HomePage = () => {
   const { isLogin } = useContext(UserContext);
   const [isGlobal, setIsGlobal] = useState(true);
-  const { globalData, feedData, globalIsLoading, feedIsLoading } =
-    useGetArticlesQuery(isGlobal);
+  const { data, isLoading } = useGetArticlesQuery(isGlobal);
+  const [selectTag, setSelectTag] = useState("");
   const { tagData, tagIsLoading } = useTagQuery();
+
+  const onClickTag = (tag: string) => {
+    setSelectTag(tag);
+  };
 
   return (
     <div className="home-page">
@@ -49,12 +53,7 @@ const HomePage = () => {
               </ul>
             </div>
 
-            <ArticlePreview
-              data={
-                isGlobal ? globalData?.data.articles : feedData?.data.articles
-              }
-              loading={isGlobal ? globalIsLoading : feedIsLoading}
-            />
+            <ArticlePreview data={data?.data.articles} loading={isLoading} />
           </div>
 
           <div className="col-md-3">
@@ -66,8 +65,13 @@ const HomePage = () => {
                   <p style={{ marginTop: "10px" }}>Loading...</p>
                 )}
 
-                {tagData?.data.tags.map((tag: string, index: number) => (
-                  <Link to="" className="tag-pill tag-default" key={index}>
+                {tagData?.data.tags.map((tag: string) => (
+                  <Link
+                    to="/"
+                    className="tag-pill tag-default"
+                    key={tag}
+                    onClick={() => onClickTag(tag)}
+                  >
                     {tag}
                   </Link>
                 ))}

@@ -24,6 +24,7 @@ interface IArticlePreviewProps {
 }
 
 const ArticlePreview = ({ data, loading }: IArticlePreviewProps) => {
+  console.log(data);
   return (
     <>
       {loading && <p style={{ marginTop: "10px" }}>Loading...</p>}

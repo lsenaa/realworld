@@ -38,16 +38,14 @@ export const useArticlesQuery = () => {
 };
 
 export const useGetArticlesQuery = (isGlobal: boolean) => {
-  const { data: globalData, isLoading: globalIsLoading } = useQuery(
-    ["articles"],
-    () => getArticles(isGlobal)
-  );
-
-  const { data: feedData, isLoading: feedIsLoading } = useQuery(["feed"], () =>
+  const { data, isLoading } = useQuery(["articles", isGlobal], () =>
     getArticles(isGlobal)
   );
 
-  return { globalData, feedData, globalIsLoading, feedIsLoading };
+  return {
+    data,
+    isLoading,
+  };
 };
 
 export const useArticleQuery = (slug: string) => {
