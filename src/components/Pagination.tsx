@@ -24,7 +24,7 @@ const Pagination = ({ count, page, setPage }: IPaginationProps) => {
     <>
       <nav>
         <ul className="pagination">
-          {pageNum.map((num, index) => (
+          {pageNum.map((num) => (
             <li
               className={`page-item ng-scope ${
                 num === activedPage ? "active" : ""

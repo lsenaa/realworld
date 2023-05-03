@@ -67,7 +67,7 @@ const HomePage = () => {
             </div>
 
             <ArticlePreview data={data?.data.articles} loading={isLoading} />
-            {isLoading && <p>is loading articles...</p>}
+
             <Pagination
               count={data?.data.articlesCount}
               page={page}
