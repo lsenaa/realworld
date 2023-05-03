@@ -2,22 +2,40 @@ import { useGetArticlesQuery } from "../hooks/queries/useQueryArticles";
 import { Link } from "react-router-dom";
 import ArticlePreview from "../components/article/ArticlePreview";
 import { useTagQuery } from "../hooks/queries/useQueryTags";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../contexts/UserContext";
 import Pagination from "../components/Pagination";
+import { getArticles } from "../apis/articles/articles";
 
 const HomePage = () => {
   const { isLogin } = useContext(UserContext);
   const [selectTag, setSelectTag] = useState("");
   const [tab, setTab] = useState(1);
   const [page, setPage] = useState(1);
-  const { data, isLoading } = useGetArticlesQuery(tab, selectTag, page);
+  const { data } = useGetArticlesQuery(tab, selectTag, page);
   const { tagData, tagIsLoading } = useTagQuery();
+  const [datas, setDatas] = useState(data);
+  const [activedPage, setActivedPage] = useState(1);
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const onClickTag = (tag: string) => {
     setSelectTag(tag);
     setTab(2);
+    setPage(1);
+    setActivedPage(1);
   };
+
+  useEffect(() => {
+    setIsLoading(true);
+
+    const getPageAritcle = async () => {
+      const result = await getArticles(tab, selectTag, page);
+      setDatas(result);
+      setIsLoading(false);
+    };
+    getPageAritcle();
+  }, [page, tab, selectTag]);
 
   return (
     <div className="home-page">
@@ -65,13 +83,14 @@ const HomePage = () => {
                 </li>
               </ul>
             </div>
-
-            <ArticlePreview data={data?.data.articles} loading={isLoading} />
+            <ArticlePreview data={datas?.data.articles} loading={isLoading} />
 
             <Pagination
-              count={data?.data.articlesCount}
+              count={datas?.data.articlesCount}
               page={page}
               setPage={setPage}
+              activedPage={activedPage}
+              setActivedPage={setActivedPage}
             />
           </div>
 

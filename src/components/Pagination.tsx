@@ -5,10 +5,17 @@ interface IPaginationProps {
   count: number;
   page: number;
   setPage: React.Dispatch<React.SetStateAction<number>>;
+  activedPage: number;
+  setActivedPage: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const Pagination = ({ count, page, setPage }: IPaginationProps) => {
-  const [activedPage, setActivedPage] = useState(1);
+const Pagination = ({
+  count,
+  page,
+  setPage,
+  activedPage,
+  setActivedPage,
+}: IPaginationProps) => {
   const totalPage = count !== undefined ? Math.ceil(count / 10) : 0;
   const pageNum = Array.from({ length: totalPage }, (_, i) => i + 1);
 
