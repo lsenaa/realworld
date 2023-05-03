@@ -60,7 +60,7 @@ const SettingPage = () => {
   const onClickLogout = () => {
     localStorage.removeItem("accessToken");
     setIsLogin("");
-    navigate("/", { replace: true });
+    window.location.replace("/");
   };
 
   return (
