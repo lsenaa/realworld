@@ -4,6 +4,7 @@ import ArticlePreview from "../components/article/ArticlePreview";
 import { useTagQuery } from "../hooks/queries/useQueryTags";
 import { useContext, useState } from "react";
 import { UserContext } from "../contexts/UserContext";
+import Pagination from "../components/Pagination";
 
 const HomePage = () => {
   const { isLogin } = useContext(UserContext);
@@ -67,6 +68,7 @@ const HomePage = () => {
             </div>
 
             <ArticlePreview data={data?.data.articles} loading={isLoading} />
+            <Pagination count={data?.data.articlesCount} />
           </div>
 
           <div className="col-md-3">
