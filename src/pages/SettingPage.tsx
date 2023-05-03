@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { putUser } from "../apis/users/users";
 import { UserContext } from "../contexts/UserContext";
 import { useUserQuery } from "../hooks/queries/useQueryUser";
 
@@ -46,13 +45,8 @@ const SettingPage = () => {
 
   const onSubmitSetting = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // putUserMutation(values)
-    // navigate(`/profile/${userData?.data.user.username}`);
-
-    putUser(values).then((res) => {
-      console.log(res);
-      navigate("/");
-    });
+    putUserMutation(values);
+    navigate("/");
   };
 
   const { setIsLogin } = useContext(UserContext);
@@ -112,7 +106,7 @@ const SettingPage = () => {
                   <input
                     className="form-control form-control-lg"
                     type="password"
-                    // placeholder="New Password"
+                    placeholder="New Password"
                     name="password"
                     value={values.password || ""}
                     onChange={handleChange}
