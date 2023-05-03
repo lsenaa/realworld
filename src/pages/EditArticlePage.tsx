@@ -1,21 +1,12 @@
 import { useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { IPutArticle } from "../apis/articles/articlesType";
-import {
-  useArticleQuery,
-  useArticlesQuery,
-} from "../hooks/queries/useQueryArticles";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useArticlesQuery } from "../hooks/queries/useQueryArticles";
 import { IFormArticleData } from "./NewArticlePage";
 
 const EditArticlePage = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  // console.log(location.state.article);
-  const params = useParams();
   const slug = String(location.state.article.slug);
-  // const slug = String(params.slug);
-  // const { articleData } = useArticleQuery(slug);
-  // console.log(articleData?.data.article);
   const { putArticleMutation } = useArticlesQuery();
 
   const [values, setValues] = useState<IFormArticleData>({
