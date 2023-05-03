@@ -13,11 +13,10 @@ const HomePage = () => {
   const [tab, setTab] = useState(1);
   const [page, setPage] = useState(1);
   const { data } = useGetArticlesQuery(tab, selectTag, page);
-  const { tagData, tagIsLoading } = useTagQuery();
   const [datas, setDatas] = useState(data);
-  const [activedPage, setActivedPage] = useState(1);
-
   const [isLoading, setIsLoading] = useState(false);
+  const { tagData, tagIsLoading } = useTagQuery();
+  const [activedPage, setActivedPage] = useState(1);
 
   const onClickTag = (tag: string) => {
     setSelectTag(tag);
@@ -34,6 +33,7 @@ const HomePage = () => {
       setDatas(result);
       setIsLoading(false);
     };
+
     getPageAritcle();
   }, [page, tab, selectTag]);
 
@@ -91,6 +91,7 @@ const HomePage = () => {
               setPage={setPage}
               activedPage={activedPage}
               setActivedPage={setActivedPage}
+              loading={isLoading}
             />
           </div>
 
