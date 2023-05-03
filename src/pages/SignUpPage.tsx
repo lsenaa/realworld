@@ -11,7 +11,6 @@ interface IFormRegisterData {
 }
 
 const SignUpPage = () => {
-  const navigate = useNavigate();
   const { setIsLogin } = useIsLogin();
 
   const [values, setValues] = useState<IFormRegisterData>({
@@ -39,7 +38,7 @@ const SignUpPage = () => {
       .then((res) => {
         setToken("accessToken", res.user.token);
         setIsLogin(getToken("accessToken"));
-        navigate("/", { replace: true });
+        window.location.replace("/");
       })
       .catch((err) => {
         console.log(err);
