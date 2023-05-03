@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useFavoriteQuery } from "../../hooks/queries/useQueryFavorites";
 import { convertDate } from "../../libs/date";
 
 export interface IArticle {
@@ -24,6 +25,20 @@ interface IArticlePreviewProps {
 }
 
 const ArticlePreview = ({ data, loading }: IArticlePreviewProps) => {
+  const { postFavoriteMutation, deleteFavoriteMutation } = useFavoriteQuery();
+
+  const onToggleFavorite = (slug: string) => {
+    data.filter((article: IArticle) => {
+      if (article?.slug === slug) {
+        if (article?.favorited) {
+          deleteFavoriteMutation(article?.slug);
+        } else {
+          postFavoriteMutation(article?.slug);
+        }
+      }
+    });
+  };
+
   return (
     <>
       {loading && <p style={{ marginTop: "10px" }}>Loading...</p>}
@@ -51,7 +66,12 @@ const ArticlePreview = ({ data, loading }: IArticlePreviewProps) => {
                 )}
               </span>
             </div>
-            <button className="btn btn-outline-primary btn-sm pull-xs-right">
+            <button
+              className={`btn btn-sm pull-xs-right ${
+                article?.favorited ? "btn-primary" : "btn-outline-primary"
+              }`}
+              onClick={() => onToggleFavorite(article?.slug)}
+            >
               <i className="ion-heart"></i> {article.favoritesCount}
             </button>
           </div>
