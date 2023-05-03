@@ -8,7 +8,7 @@ import { IPostArticle, IPutArticle } from "./articlesType";
 export const getArticles = async (tab: number, selectTag: string) => {
   try {
     const data = await apiClient.get(
-      `/articles${tab === 1 ? "" : ""}${tab === 0 ? "/feed" : ""}?limit=20
+      `/articles${tab === 1 ? "" : ""}${tab === 0 ? "/feed" : ""}?limit=10
       ${tab === 2 ? `&tag=${selectTag}` : ""}`
     );
     return data;
