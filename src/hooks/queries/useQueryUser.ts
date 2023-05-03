@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { getUser, putUser } from "../../apis/users/users";
+import { getUser, postLogin, putUser } from "../../apis/users/users";
 
 export const useUserQuery = () => {
   const queryClient = useQueryClient();
@@ -16,3 +16,5 @@ export const useUserQuery = () => {
 
   return { userData, userIsLoading, putUserMutation };
 };
+
+export const usePostLoginMutation = () => useMutation(postLogin);

@@ -1,15 +1,22 @@
 import { apiClient } from "../client";
 import { IPostLogin, IPostRegister, IPutUser } from "./usersType";
 
+// export const postLogin = async ({ email, password }: IPostLogin) => {
+//   try {
+//     const { data } = await apiClient.post(`/users/login`, {
+//       user: { email, password },
+//     });
+//     return data;
+//   } catch (e) {
+//     console.error(e);
+//   }
+// };
+
 export const postLogin = async ({ email, password }: IPostLogin) => {
-  try {
-    const { data } = await apiClient.post(`/users/login`, {
-      user: { email, password },
-    });
-    return data;
-  } catch (e) {
-    console.error(e);
-  }
+  const { data } = await apiClient.post(`/users/login`, {
+    user: { email, password },
+  });
+  return data;
 };
 
 export const postRegister = async ({
