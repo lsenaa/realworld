@@ -9,7 +9,7 @@ interface IPaginationProps {
 
 const Pagination = ({ count, page, setPage }: IPaginationProps) => {
   const [activedPage, setActivedPage] = useState(1);
-  const totalPage = count !== undefined ? Math.ceil(count / 10) : 0;
+  const totalPage = count !== undefined ? Math.ceil(count / 10) : 1;
   const pageNum = Array.from({ length: totalPage }, (_, i) => i + 1);
 
   const onClickPage = (
