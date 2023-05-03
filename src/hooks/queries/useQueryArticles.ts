@@ -36,9 +36,13 @@ export const useArticlesQuery = () => {
   };
 };
 
-export const useGetArticlesQuery = (tab: number, selectTag: string) => {
+export const useGetArticlesQuery = (
+  tab: number,
+  selectTag: string,
+  page: number
+) => {
   const { data, isLoading } = useQuery(["articles", tab, selectTag], () =>
-    getArticles(tab, selectTag)
+    getArticles(tab, selectTag, page)
   );
 
   return {

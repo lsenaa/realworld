@@ -1,14 +1,16 @@
 import { apiClient } from "../client";
 import { IPostArticle, IPutArticle } from "./articlesType";
 
-// ${selectTag ? `&tag=${selectTag}` : ""}
-// ${favorited ? `&favorited=${favorited}` : ""}
-// ${author ? `&author=${author}` : ""}`)
-
-export const getArticles = async (tab: number, selectTag: string) => {
+export const getArticles = async (
+  tab: number,
+  selectTag: string,
+  page: number
+) => {
   try {
     const data = await apiClient.get(
-      `/articles${tab === 1 ? "" : ""}${tab === 0 ? "/feed" : ""}?limit=10
+      `/articles${tab === 1 ? "" : ""}${
+        tab === 0 ? "/feed" : ""
+      }?limit=10&offset=${10 * (page - 1)}
       ${tab === 2 ? `&tag=${selectTag}` : ""}`
     );
     return data;

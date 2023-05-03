@@ -10,10 +10,9 @@ const HomePage = () => {
   const { isLogin } = useContext(UserContext);
   const [selectTag, setSelectTag] = useState("");
   const [tab, setTab] = useState(1);
-  const { data, isLoading } = useGetArticlesQuery(tab, selectTag);
+  const [page, setPage] = useState(1);
+  const { data, isLoading } = useGetArticlesQuery(tab, selectTag, page);
   const { tagData, tagIsLoading } = useTagQuery();
-
-  // console.log(data?.data.articlesCount);
 
   const onClickTag = (tag: string) => {
     setSelectTag(tag);
@@ -68,7 +67,12 @@ const HomePage = () => {
             </div>
 
             <ArticlePreview data={data?.data.articles} loading={isLoading} />
-            <Pagination count={data?.data.articlesCount} />
+            {isLoading && <p>is loading articles...</p>}
+            <Pagination
+              count={data?.data.articlesCount}
+              page={page}
+              setPage={setPage}
+            />
           </div>
 
           <div className="col-md-3">
