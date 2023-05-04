@@ -1,9 +1,7 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 
 interface IPaginationProps {
   count: number;
-  page: number;
   setPage: React.Dispatch<React.SetStateAction<number>>;
   activedPage: number;
   setActivedPage: React.Dispatch<React.SetStateAction<number>>;
@@ -12,7 +10,6 @@ interface IPaginationProps {
 
 const Pagination = ({
   count,
-  page,
   setPage,
   activedPage,
   setActivedPage,

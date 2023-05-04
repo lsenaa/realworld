@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
 import { useUserQuery } from "../hooks/queries/useQueryUser";
@@ -13,7 +13,6 @@ interface IFormProfileData {
 
 const SettingPage = () => {
   const navigate = useNavigate();
-
   const { userData, putUserMutation } = useUserQuery();
 
   const [values, setValues] = useState<IFormProfileData>({

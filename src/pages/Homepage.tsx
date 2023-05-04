@@ -72,7 +72,6 @@ const HomePage = () => {
 
             <Pagination
               count={data?.data.articlesCount}
-              page={page}
               setPage={setPage}
               activedPage={activedPage}
               setActivedPage={setActivedPage}
