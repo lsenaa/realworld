@@ -17,22 +17,12 @@ const SettingPage = () => {
   const { userData, putUserMutation } = useUserQuery();
 
   const [values, setValues] = useState<IFormProfileData>({
-    image: "",
-    username: "",
-    bio: "",
-    email: "",
+    image: userData?.data.user.image,
+    username: userData?.data.user.username,
+    bio: userData?.data.user.bio,
+    email: userData?.data.user.email,
     password: "",
   });
-
-  useEffect(() => {
-    setValues({
-      image: userData?.data.user.image,
-      username: userData?.data.user.username,
-      bio: userData?.data.user.bio,
-      email: userData?.data.user.email,
-      password: "",
-    });
-  }, [userData]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
