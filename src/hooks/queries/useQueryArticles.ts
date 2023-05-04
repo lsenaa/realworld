@@ -1,4 +1,5 @@
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
 import {
   DeleteArticle,
   getArticles,
@@ -41,13 +42,19 @@ export const useGetArticlesQuery = (
   selectTag: string,
   page: number
 ) => {
-  const { data, isLoading } = useQuery(["articles", tab, selectTag], () =>
-    getArticles(tab, selectTag, page)
+  const { data, isLoading, refetch } = useQuery(
+    ["articles", tab, selectTag],
+    () => getArticles(tab, selectTag, page)
   );
+
+  useEffect(() => {
+    refetch();
+  }, [page]);
 
   return {
     data,
     isLoading,
+    refetch,
   };
 };
 
