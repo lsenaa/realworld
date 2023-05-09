@@ -15,7 +15,7 @@ For more information on how to this works with other frontends/backends, head ov
 # Getting started
 
 - Move to the folder where you want to clone this repo and run these commands in order.
-  - ``git clone https://github.com/lsenaa/realworld.git`
+  - `git clone https://github.com/lsenaa/realworld.git`
   - `yarn` or `npm install`
   - `yarn start` or `npm start`
 
